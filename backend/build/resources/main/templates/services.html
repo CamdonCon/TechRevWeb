@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Services - STR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2em;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .container {
+            margin-top: 2em;
+        }
+        .quote-form {
+            margin-top: 2em;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            max-width: 400px;
+        }
+        .quote-form label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        .quote-form input, .quote-form textarea {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .quote-form button {
+            padding: 0.5em 1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .quote-form button:hover {
+            background-color: #0056b3;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 0.75em;
+            margin-top: 1em;
+            border-radius: 4px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/products">Products</a>
+    <a href="/services">Services</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+
+<div class="container">
+    <div th:if="${success}" style="color: green; font-weight: bold; margin-bottom: 1em;">
+        <p th:text="${success}"></p>
+    </div>
+    <h1>Our Services</h1>
+    <p>We provide affordable and reliable repair services for phones, tablets, laptops, and more.</p>
+
+
+<div class="quote-form">
+    <h2>Request a Repair Quote</h2>
+
+    <div th:if="${param.success}" class="success-message">
+        Quote submitted successfully!
+    </div>
+
+    <form action="/quote/submit" method="post">
+        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+        <label for="deviceType">Device Type:</label>
+        <input type="text" id="deviceType" name="deviceType" required>
+    
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" required>
+    
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" required>
+    
+        <label for="issue">Issue:</label>
+        <textarea id="issue" name="issue" rows="4" required></textarea>
+    
+        <button type="submit">Submit Quote Request</button>
+    </form>
+</div>
+
+</div>
+</body>
+</html>

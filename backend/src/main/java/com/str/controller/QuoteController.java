@@ -2,36 +2,56 @@ package com.str.controller;
 
 import com.str.model.*;
 import com.str.repository.*;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import ch.qos.logback.core.model.Model;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.*;
-import java.util.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController @RequestMapping("/api/quotes")
+import java.security.Principal;
+import java.time.LocalDateTime;
+
+@Controller
 public class QuoteController {
-    private final QuoteRepository quotes; private final UserRepository users;
-    public QuoteController(QuoteRepository quotes, UserRepository users) { this.quotes = quotes; this.users = users; }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public QuoteRequest create(@RequestParam("description") String desc,
-                               @RequestParam("image") MultipartFile file,
-                               @AuthenticationPrincipal UserDetails userDetails) throws Exception {
-        Path uploadDir = Paths.get("uploads"); Files.createDirectories(uploadDir);
-        String filename = UUID.randomUUID()+"-"+file.getOriginalFilename();
-        Path target = uploadDir.resolve(filename);
-        file.transferTo(target);
+    private final QuoteRepository quotes;
+    private final UserRepository users;
 
-        User user = users.findByUsername(userDetails.getUsername()).orElseThrow();
-        QuoteRequest qr = new QuoteRequest(null, user, desc, target.toString(), "NEW", null, null);
-        return quotes.save(qr);
+    public QuoteController(QuoteRepository quotes, UserRepository users) {
+        this.quotes = quotes;
+        this.users = users;
     }
 
-    @GetMapping
-    public List<QuoteRequest> myQuotes(@AuthenticationPrincipal UserDetails userDetails) {
-        User user = users.findByUsername(userDetails.getUsername()).orElseThrow();
-        return quotes.findByUser(user);
+    @GetMapping("/services")
+    public String servicesPage(Model model) {
+        return "services";
+    }
+
+    @PostMapping("/quote/submit")
+    public String submitQuote(@RequestParam String deviceType,
+                            @RequestParam String brand,
+                            @RequestParam String model,
+                            @RequestParam String issue,
+                            RedirectAttributes redirectAttributes) {
+
+        // Use a dummy user with ID 1 (ensure this exists in the DB)
+        User dummyUser = users.findById(1L).orElseThrow();
+
+        // Create and populate the QuoteRequest object
+        QuoteRequest quote = new QuoteRequest();
+        quote.setDeviceType(deviceType);
+        quote.setBrand(brand);
+        quote.setModel(model);
+        quote.setIssue(issue);
+        quote.setCreatedAt(LocalDateTime.now());
+        quote.setStatus("NEW");
+        quote.setUser(dummyUser); // set user AFTER creating quote
+
+        // Save to DB
+        quotes.save(quote);
+
+        redirectAttributes.addFlashAttribute("success", "Quote request submitted!");
+        return "redirect:/services";
     }
 }

@@ -9,9 +9,11 @@ CREATE TABLE user (
 CREATE TABLE quote_request (
   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id BIGINT NOT NULL,
-  description TEXT,
-  image_path VARCHAR(512),
-  status VARCHAR(50),
+  device_type VARCHAR(255) NOT NULL,
+  brand VARCHAR(255) NOT NULL,
+  model VARCHAR(255) NOT NULL,
+  issue TEXT NOT NULL,
+  status VARCHAR(50) DEFAULT 'NEW',
   quote_price DOUBLE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

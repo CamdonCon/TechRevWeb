@@ -2,19 +2,27 @@ package com.str.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "quote_request")
 public class QuoteRequest {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
+    private String deviceType;
+    private String brand;
+    private String model;
+    private String issue;
+
+    private LocalDateTime createdAt;
+
+    @ManyToOne
     private User user;
 
-    private String description;
-    private String imagePath; // stored relative path or S3 key
-    private String status = "NEW"; // NEW | QUOTED | CLOSED
-    private Double quotePrice;      // nullable until priced
-    private Instant createdAt = Instant.now();
+    private String status;
 }
