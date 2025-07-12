@@ -1,0 +1,19 @@
+USE str_db;
+
+CREATE TABLE user (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE quote_request (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  description TEXT,
+  image_path VARCHAR(512),
+  status VARCHAR(50),
+  quote_price DOUBLE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);

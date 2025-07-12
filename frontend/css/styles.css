@@ -1,0 +1,5 @@
+body{font-family:system-ui;max-width:600px;margin:auto;padding:1rem;line-height:1.5}
+form{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+button{padding:.5rem 1rem;cursor:pointer}
+textarea{min-height:120px;resize:vertical}
+ul{list-style:none;padding:0}
