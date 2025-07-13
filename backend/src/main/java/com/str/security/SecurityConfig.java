@@ -22,7 +22,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**", "/css/**", "/js/**", "/", "/login", "/register").permitAll()
                     .anyRequest().authenticated())
-            .formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/dashboard", true))           
+            .formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/home", true))           
             .logout(logout -> logout.logoutUrl("/logout"))
             .build();
     }

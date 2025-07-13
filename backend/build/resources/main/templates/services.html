@@ -1,106 +1,196 @@
 <!DOCTYPE html>
-
-
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Services - STR</title>
+    <title>STR Services</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
             font-family: Arial, sans-serif;
-            padding: 2em;
+            overflow-x: hidden;
         }
+
+        nav {
+            background-color: #01CDCF;
+            width: 100%;
+            height: 7vh;
+            transition: height 0.4s ease;
+            overflow: hidden;
+            border-radius: 0 0 8px 8px;
+        }
+
+        nav.open {
+            height: 25vh;
+        }
+
+        .nav-inner {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2em;
+        }
+
         nav a {
-            margin-right: 15px;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-decoration: none;
-            color: #007BFF;
+            font-weight: bold;
+            transition: color 0.2s ease-in-out;
         }
+
+        nav a:hover {
+            color: #1f6feb;
+        }
+
+        .menu-icon {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 100%;
+            height: 4px;
+            background-color: #D9D9D9;
+            border-radius: 10px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-icon.open .top {
+            transform: translateY(10px) rotate(45deg);
+        }
+
+        .menu-icon.open .bottom {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+
         .container {
-            margin-top: 2em;
+            padding: 2em;
+            color: white;
         }
+
         .quote-form {
             margin-top: 2em;
-            padding: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 1.5em;
             background-color: #f9f9f9;
+            border-radius: 8px;
             max-width: 400px;
         }
+
         .quote-form label {
-            display: block;
-            margin-bottom: 0.5em;
             font-weight: bold;
+            margin-bottom: 0.5em;
+            display: block;
+            color: black;
         }
-        .quote-form input, .quote-form textarea {
+
+        .quote-form input,
+        .quote-form textarea {
             width: 100%;
             padding: 0.5em;
             margin-bottom: 1em;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
         }
+
         .quote-form button {
-            padding: 0.5em 1em;
-            background-color: #007BFF;
-            color: white;
+            background-color: #17ffa6;
+            color: black;
+            padding: 0.6em 1em;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
         }
+
         .quote-form button:hover {
-            background-color: #0056b3;
+            background-color: #00c282;
         }
+
         .success-message {
-            background-color: #d4edda;
+            background-color: #17ffa6;
             color: #155724;
             border: 1px solid #c3e6cb;
             padding: 0.75em;
-            margin-top: 1em;
-            border-radius: 4px;
-            display: inline-block;
+            margin-bottom: 1em;
+            border-radius: 6px;
         }
     </style>
 </head>
 <body>
-<nav>
-    <a href="/dashboard">Dashboard</a>
-    <a href="/products">Products</a>
-    <a href="/services">Services</a>
-    <a href="/logout">Logout</a>
+
+<nav id="navbar">
+    <div class="nav-inner">
+        <div class="nav-row">
+            <div class="nav-links">
+                <a href="/home">HOME</a>
+                <a href="/products">PRODUCTS</a>
+                <a href="/services">SERVICES</a>
+                <a href="/logout">LOGOUT</a>
+            </div>
+            <div class="menu-icon" id="menuBtn">
+                <div class="bar top"></div>
+                <div class="bar bottom"></div>
+            </div>
+        </div>
+    </div>
 </nav>
 
-
 <div class="container">
-    <div th:if="${success}" style="color: green; font-weight: bold; margin-bottom: 1em;">
-        <p th:text="${success}"></p>
-    </div>
-    <h1>Our Services</h1>
-    <p>We provide affordable and reliable repair services for phones, tablets, laptops, and more.</p>
-
-
-<div class="quote-form">
-    <h2>Request a Repair Quote</h2>
+    <h1>💻 Device Repair Services</h1>
+    <p>We fix phones, laptops, tablets, and more — fast, reliable, and affordable.</p>
 
     <div th:if="${param.success}" class="success-message">
         Quote submitted successfully!
     </div>
 
-    <form action="/quote/submit" method="post">
-        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
-        <label for="deviceType">Device Type:</label>
-        <input type="text" id="deviceType" name="deviceType" required>
-    
-        <label for="brand">Brand:</label>
-        <input type="text" id="brand" name="brand" required>
-    
-        <label for="model">Model:</label>
-        <input type="text" id="model" name="model" required>
-    
-        <label for="issue">Issue:</label>
-        <textarea id="issue" name="issue" rows="4" required></textarea>
-    
-        <button type="submit">Submit Quote Request</button>
-    </form>
+    <div class="quote-form">
+        <h2>Request a Repair Quote</h2>
+
+        <form action="/quote/submit" method="post">
+            <label for="deviceType">Device Type:</label>
+            <input type="text" id="deviceType" name="deviceType" required>
+
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="brand" required>
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="issue">Issue:</label>
+            <textarea id="issue" name="issue" rows="4" required></textarea>
+
+            <button type="submit">Submit Quote Request</button>
+        </form>
+    </div>
 </div>
 
-</div>
+<script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navbar = document.getElementById('navbar');
+
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('open');
+        navbar.classList.toggle('open');
+    });
+</script>
+
 </body>
 </html>
