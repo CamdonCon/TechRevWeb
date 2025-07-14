@@ -3,13 +3,15 @@ package com.str.controller;
 import com.str.model.*;
 import com.str.repository.*;
 
-import ch.qos.logback.core.model.Model;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Controller
 public class QuoteController {
@@ -23,21 +25,40 @@ public class QuoteController {
     }
 
     @GetMapping("/services")
-    public String servicesPage(Model model) {
+    public String servicesPage(org.springframework.ui.Model model) {
         return "services";
     }
 
-    @PostMapping("/quote/submit")
-    public String submitQuote(@RequestParam String deviceType,
-                            @RequestParam String brand,
-                            @RequestParam String model,
-                            @RequestParam String issue,
-                            RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/quote/submit", consumes = {"multipart/form-data"})
+    public String submitQuote(
+            @RequestParam String deviceType,
+            @RequestParam String brand,
+            @RequestParam String model,
+            @RequestParam String issue,
+            @RequestParam("image") MultipartFile imageFile,
+            RedirectAttributes redirectAttributes) {
 
-        // Use a dummy user with ID 1 (ensure this exists in the DB)
         User dummyUser = users.findById(1L).orElseThrow();
 
-        // Create and populate the QuoteRequest object
+        String imagePath = null;
+        if (!imageFile.isEmpty()) {
+            try {
+                String uploadDir = "uploads/";
+                String filename = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+                Path filePath = uploadPath.resolve(filename);
+                Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                imagePath = "/" + uploadDir + filename;
+            } catch (IOException e) {
+                e.printStackTrace();
+                redirectAttributes.addFlashAttribute("error", "Failed to upload image.");
+                return "redirect:/services";
+            }
+        }
+
         QuoteRequest quote = new QuoteRequest();
         quote.setDeviceType(deviceType);
         quote.setBrand(brand);
@@ -45,11 +66,10 @@ public class QuoteController {
         quote.setIssue(issue);
         quote.setCreatedAt(LocalDateTime.now());
         quote.setStatus("NEW");
-        quote.setUser(dummyUser); // set user AFTER creating quote
+        quote.setUser(dummyUser);
+        quote.setImagePath(imagePath);
 
-        // Save to DB
         quotes.save(quote);
-
         redirectAttributes.addFlashAttribute("success", "Quote request submitted!");
         return "redirect:/services";
     }

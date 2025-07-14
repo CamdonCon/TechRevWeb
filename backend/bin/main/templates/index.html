@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Seattle Tech Revive</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Global Styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      background-color: #00B0FF;
+      width: 100%;
+      height: 7vh;
+      transition: height 0.4s ease;
+      overflow: hidden;
+      border-radius: 0 0 8px 8px;
+    }
+
+    nav.open {
+      height: 25vh;
+    }
+
+    .nav-inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2em;
+    }
+
+    nav a {
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s ease-in-out;
+    }
+
+    nav a:hover {
+      color: #1f6feb;
+    }
+
+    .menu-icon {
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .bar {
+        width: 100%;
+        height: 4px;
+        border-radius: 10px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Top and bottom bar color difference */
+    .top-bar {
+        background-color: #3A0CA3; /* example: hot pink */
+    }
+
+    .bottom-bar {
+        background-color: white; /* example: dodger blue */
+    }
+
+    .menu-icon.open .top-bar {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .menu-icon.open .bottom-bar {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    section {
+      padding: 4em 2em;
+      max-width: 1000px;
+      margin: auto;
+    }
+    
+    .about{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #15616D;
+        padding: 10px; 
+        margin-top: 50px;
+        margin-bottom: 70px;
+        color: white;
+        height: 500px;
+        font-size: larger;
+        text-align: center;
+    }
+
+    select {
+        width: 100%;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background-color: white;
+        font-size: 1em;
+    }
+
+    .service-text {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #01CDCF;
+        padding: 50px 20px 60px 50px; 
+        color: white;
+        width: 500px;
+        font-size: larger;
+        border-radius: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .quote-form {
+        background-color: #f9f9f9;
+        color: black;
+        padding: 2em;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: -50px auto 2em auto; /* overlaps upward */
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .quote-form label {
+        display: block;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+    }
+
+    .quote-form input, .quote-form textarea {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 1em;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .quote-form button {
+      background-color: #17ffa6;
+      color: black;
+      padding: 0.75em 1.5em;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 15px;
+    }
+
+    .quote-form button:hover {
+      background-color: #00c282;
+    }
+
+    .product-card {
+      background: #222;
+      padding: 1em;
+      border-radius: 10px;
+      margin-bottom: 1em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-row">
+      <div class="nav-links">
+        <a href="#home">HOME</a>
+        <a href="#products">PRODUCTS</a>
+        <a href="#services">SERVICES</a>
+      </div>
+      <div class="menu-icon" id="menuBtn">
+        <div class="bar top-bar"></div>
+        <div class="bar bottom-bar"></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- SECTIONS -->
+
+<section id="home" class="about">
+  <h1>Seattle Tech Revive</h1>
+  <p>We sell refurbs and offer affordable device repairs with quality support.</p>
+</section>
+
+<section id="services">
+    <div class="service-text">
+        <h2>Need it fixed? Get a quote:</h2>
+    </div>
+
+    <div class="quote-form">
+        <label for="deviceType">Device Type:</label>
+        <form action="/quote/submit" method="post" enctype="multipart/form-data">
+        <select name="deviceType" id="deviceType" required onchange="updateBrands()">
+            <option value="">-- Select Device Type --</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Desktop">Desktop</option>
+            <option value="Phone">Phone</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Monitor">Monitor</option>
+            <option value="Gaming Console">Gaming Console</option>
+            <option value="Controller">Controller</option>
+            <option value="Other">Other</option>
+        </select>
+          
+        <label for="brand">Brand:</label>
+        <select name="brand" id="brand" required>
+            <option value="">-- Select Brand --</option>
+        </select>
+  
+        <label for="model">Model:</label>
+        <input type="text" name="model" required>
+  
+        <label for="issue">Issue:</label>
+        <textarea name="issue" rows="4" required></textarea>
+  
+        <label for="image">Upload Image:</label>
+        <input type="file" name="image" accept="image/*">
+
+        <div style="text-align: right;">
+            <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    <script>
+        const brandOptions = {
+          Laptop: ["Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "Razer", "Microsoft", "Other"],
+          Desktop: ["Dell", "HP", "Lenovo", "Asus", "Acer", "Other"],
+          Phone: ["Apple", "Samsung", "Google", "OnePlus", "Other"],
+          Tablet: ["Apple", "Samsung", "Microsoft", "Other"],
+          Monitor: ["Dell", "LG", "Samsung", "Asus", "Other"],
+          "Gaming Console": ["Nintendo", "Sony", "Xbox", "Other"],
+          Controller: ["Nintendo", "Sony", "Xbox", "Other"],
+          Other: ["Other"]
+        };
+      
+        function updateBrands() {
+          const deviceType = document.getElementById("deviceType").value;
+          const brandSelect = document.getElementById("brand");
+      
+          // Clear existing options
+          brandSelect.innerHTML = '<option value="">-- Select Brand --</option>';
+      
+          if (deviceType && brandOptions[deviceType]) {
+            brandOptions[deviceType].forEach(brand => {
+              const option = document.createElement("option");
+              option.value = brand;
+              option.textContent = brand;
+              brandSelect.appendChild(option);
+            });
+          }
+        }
+    </script>
+</section>
+
+<section id="products">
+  <h2>🔥 Refurbished Tech Deals</h2>
+
+  <div th:each="product : ${products}">
+    <div class="product-card">
+      <img th:src="@{${product.imageUrl}}" alt="Product" style="width:100%; height:200px; object-fit:cover; border-radius:6px;">
+      <h3 th:text="${product.name}">Product Name</h3>
+      <p th:text="'$' + ${product.price}">Price</p>
+      <p th:text="${product.description}">Short description</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navbar = document.getElementById('navbar');
+
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    navbar.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

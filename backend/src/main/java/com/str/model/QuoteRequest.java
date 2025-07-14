@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "quote_request")
 public class QuoteRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,4 +26,8 @@ public class QuoteRequest {
     private User user;
 
     private String status;
+
+
+    private Double quotePrice;  
+    private String imagePath;  // <- NEW: path to uploaded image
 }
