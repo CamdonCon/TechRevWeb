@@ -9,6 +9,7 @@
     html, body {
       margin: 0;
       padding: 0;
+      padding-top: 7vh;
       font-family: Arial, sans-serif;
       background-color: black;
       color: white;
@@ -16,12 +17,16 @@
     }
 
     nav {
-      background-color: #00B0FF;
-      width: 100%;
-      height: 7vh;
-      transition: height 0.4s ease;
-      overflow: hidden;
-      border-radius: 0 0 8px 8px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #00B0FF;
+        height: 7vh;
+        transition: height 0.4s ease;
+        overflow: hidden;
+        border-radius: 0 0 8px 8px;
+        z-index: 999;
     }
 
     nav.open {
@@ -100,13 +105,14 @@
     .about{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #15616D;
-        padding: 10px; 
-        margin-top: 50px;
-        margin-bottom: 70px;
+        padding: 50px 20px 60px 50px; 
         color: white;
-        height: 500px;
+        width: 500px;
+        height: 700px;
         font-size: larger;
-        text-align: center;
+        border-radius: 12px;
+        position: relative;
+        z-index: 1;
     }
 
     select {
@@ -129,6 +135,13 @@
         border-radius: 12px;
         position: relative;
         z-index: 1;
+        
+        transform: translateX(-150px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .service-text.visible {
+        transform: translateX(0);
     }
 
     .quote-form {
@@ -137,10 +150,17 @@
         padding: 2em;
         border-radius: 10px;
         max-width: 600px;
-        margin: -50px auto 2em auto; /* overlaps upward */
+        margin: -50px auto 2em auto;
         position: relative;
         z-index: 10;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        transform: translateX(200px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .quote-form.visible {
+        transform: translateX(0);
     }
 
     .quote-form label {
@@ -173,12 +193,44 @@
       background-color: #00c282;
     }
 
+    .product-text {
+        background-color: #8338EC;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 50px 20px 60px 50px; 
+        color: white;
+        width: 500px;
+        font-size: larger;
+        border-radius: 12px;
+        position: relative;
+        margin: 10px auto 2em auto;
+        margin-left: 350px;
+        z-index: 1;
+
+        transform: translateY(+150px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .product-text.visible {
+        transform: translateY(0);
+    }
+
     .product-card {
-      background: #222;
-      padding: 1em;
-      border-radius: 10px;
-      margin-bottom: 1em;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        background: #222;
+        padding: 1em;
+        border-radius: 10px;
+        margin-top: -20px;
+        margin-bottom: 30px;
+        position: relative;
+        border: 5px solid white;
+        z-index: 10;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+        transform: translateX(150px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .product-card.visible {
+        transform: translateX(0);
     }
   </style>
 </head>
@@ -279,14 +331,17 @@
 </section>
 
 <section id="products">
-  <h2>🔥 Refurbished Tech Deals</h2>
+    <div class="product-text">
+        <h2>Refurbished Products</h2>
+        <p>All of these products have been stress tested before listing.</p>
+    </div>
 
   <div th:each="product : ${products}">
     <div class="product-card">
-      <img th:src="@{${product.imageUrl}}" alt="Product" style="width:100%; height:200px; object-fit:cover; border-radius:6px;">
       <h3 th:text="${product.name}">Product Name</h3>
-      <p th:text="'$' + ${product.price}">Price</p>
       <p th:text="${product.description}">Short description</p>
+      <p th:text="'$' + ${product.price}">Price</p>
+      <img th:src="@{${product.imageUrl}}" alt="Product" style="width:100%; height:200px; object-fit:cover; border-radius:6px;">
     </div>
   </div>
 </section>
@@ -299,6 +354,86 @@
     menuBtn.classList.toggle('open');
     navbar.classList.toggle('open');
   });
+</script>
+
+<script>
+    const target = document.querySelector('.service-text');
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio >= 0.5) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: [0, 0.5, 1]
+    });
+  
+    if (target) {
+      observer.observe(target);
+    }
+</script>
+
+<script>
+    const formTarget = document.querySelector('.quote-form');
+  
+    const formObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio >= 0.5) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: [0, 0.5, 1]
+    });
+  
+    if (formTarget) {
+      formObserver.observe(formTarget);
+    }
+</script>
+
+<script>
+    const productTarget = document.querySelector('.product-text');
+  
+    const productObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio >= 0.5) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: [0, 0.5, 1]
+    });
+  
+    if (productTarget) {
+      productObserver.observe(productTarget);
+    }
+</script>
+
+<script>
+    const productCards = document.querySelectorAll('.product-card');
+  
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio >= 0.5) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: [0, 0.5, 1]
+    });
+  
+    productCards.forEach(card => {
+      cardObserver.observe(card);
+    });
 </script>
 
 </body>
