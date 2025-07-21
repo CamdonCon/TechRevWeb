@@ -19,8 +19,15 @@ public class ProductController {
         this.products = products;
     }
 
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("products", products.findAll());
+        return "index"; // This maps to index.html
+    }
+
     @GetMapping("/products")
     public String viewProducts(Model model) {
+        model.addAttribute("products", products.findAll());
         return "products"; // This maps to products.html
     }
 
