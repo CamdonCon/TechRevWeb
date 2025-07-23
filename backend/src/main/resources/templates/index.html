@@ -4,7 +4,9 @@
   <title>Seattle Tech Revive</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
 
@@ -89,68 +91,7 @@
   </div>
 </section>
 
-<!-- SCRIPTS -->
-<script>
-  const menuBtn = document.getElementById('menuBtn');
-  const navbar = document.getElementById('navbar');
-  menuBtn.addEventListener('click', () => {
-    menuBtn.classList.toggle('open');
-    navbar.classList.toggle('open');
-  });
-
-  const brandOptions = {
-    Laptop: ["Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "Razer", "Microsoft", "Other"],
-    Desktop: ["Dell", "HP", "Lenovo", "Asus", "Acer", "Other"],
-    Phone: ["Apple", "Samsung", "Google", "OnePlus", "Other"],
-    Tablet: ["Apple", "Samsung", "Microsoft", "Other"],
-    Monitor: ["Dell", "LG", "Samsung", "Asus", "Other"],
-    "Gaming Console": ["Nintendo", "Sony", "Xbox", "Other"],
-    Controller: ["Nintendo", "Sony", "Xbox", "Other"],
-    Other: ["Other"]
-  };
-
-  function updateBrands() {
-    const deviceType = document.getElementById("deviceType").value;
-    const brandSelect = document.getElementById("brand");
-    brandSelect.innerHTML = '<option value="">-- Select Brand --</option>';
-    if (deviceType && brandOptions[deviceType]) {
-      brandOptions[deviceType].forEach(brand => {
-        const option = document.createElement("option");
-        option.value = brand;
-        option.textContent = brand;
-        brandSelect.appendChild(option);
-      });
-    }
-  }
-
-  // Single IntersectionObserver for all animated elements
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible');
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.service-text, .quote-form, .product-text, .product-card')
-    .forEach(el => observer.observe(el));
-
-  // Highlight nav link on scroll
-  const navLinks = document.querySelectorAll('nav a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    document.querySelectorAll('section').forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      if (window.scrollY >= sectionTop) current = section.getAttribute('id');
-    });
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-    });
-  });
-</script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
