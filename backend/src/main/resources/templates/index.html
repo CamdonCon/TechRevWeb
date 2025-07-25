@@ -119,23 +119,21 @@
     }
     
     .about {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #15616D;
-      color: white;
-      font-size: larger;
-      position: relative;
-      z-index: 1;
-      text-align: center;
-
-      /* Full width */
       width: 100%;
-      box-sizing: border-box; /* Ensures padding doesn't add to width */
-      margin: 0;
-      padding: 50px 20px 60px 20px; /* Use equal left/right padding */
-      height: 700px;
+      padding: 50px 0 60px 0; /* Vertical padding only */
+      border-radius: 0 0 12px 12px; /* Bottom rounded corners */
+      box-sizing: border-box;
+    }
 
-      /* Keep only the bottom border radius */
-      border-radius: 0 0 12px 12px;
+    .about-inner {
+      max-width: 1000px;   /* Restrict text width for large screens */
+      margin: 0 auto;      /* Center the content */
+      padding: 0 20px;     /* Add horizontal padding for mobile */
+      text-align: center;  /* Center text */
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: larger;
     }
 
     select {
@@ -322,10 +320,11 @@
 </nav>
 
 <!-- SECTIONS -->
-
 <section id="home" class="about">
-  <h1>Seattle Tech Revive</h1>
-  <p>We sell refurbs and offer affordable device repairs with quality support.</p>
+  <div class="about-inner">
+    <h1>Seattle Tech Revive</h1>
+    <p>We sell refurbs and offer affordable device repairs with quality support.</p>
+  </div>
 </section>
 
 <section id="services">
