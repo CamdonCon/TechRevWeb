@@ -7,8 +7,8 @@ sudo chmod -R u+rwX .
 
 # Pull latest code
 echo "Pulling latest changes..."
-git fetch origin developement
-git reset --hard origin/developement
+git fetch origin dev2
+git reset --hard origin/dev2
 git clean -fd
 
 # Restart backend (Spring Boot)
