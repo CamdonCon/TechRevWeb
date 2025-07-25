@@ -125,23 +125,17 @@
       font-size: larger;
       position: relative;
       z-index: 1;
+      text-align: center;
 
-      /* Full width background */
+      /* Full width */
       width: 100%;
+      box-sizing: border-box; /* Ensures padding doesn't add to width */
       margin: 0;
-      padding: 50px 20px 60px 20px;
+      padding: 50px 20px 60px 20px; /* Use equal left/right padding */
       height: 700px;
 
-      /* Limit content width for larger screens */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      /* Keep only the bottom border radius */
       border-radius: 0 0 12px 12px;
-    }
-
-    .about > * {
-      max-width: 1300px; /* limit content width */
     }
 
     select {
