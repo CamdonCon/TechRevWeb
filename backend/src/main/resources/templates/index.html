@@ -59,7 +59,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.2rem; /* Larger font size */
+      font-size: 1rem; /* Larger font size */
       transition: color 0.2s ease-in-out;
     }
 
@@ -125,17 +125,23 @@
       font-size: larger;
       position: relative;
       z-index: 1;
-      text-align: center;
 
-      /* Full width */
+      /* Full width background */
       width: 100%;
-      max-width: 100%;
-      margin: 0;                /* remove auto-centering */
-      padding: 50px 20px 60px 50px;
+      margin: 0;
+      padding: 50px 20px 60px 20px;
       height: 700px;
 
-      /* Keep only the bottom border radius */
+      /* Limit content width for larger screens */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       border-radius: 0 0 12px 12px;
+    }
+
+    .about > * {
+      max-width: 900px; /* limit content width */
     }
 
     select {
@@ -265,7 +271,7 @@
       }
 
       nav a {
-        font-size: 1.4rem; /* Larger links on mobile */
+        font-size: 1rem; /* Larger links on mobile */
       }
 
       .nav-links {
