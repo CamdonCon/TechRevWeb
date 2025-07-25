@@ -232,6 +232,52 @@
     .product-card.visible {
         transform: translateX(0);
     }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      nav {
+        height: auto;
+        padding: 0.5em;
+      }
+
+      .nav-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5em 1em;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 1em;
+        width: 100%;
+        text-align: left;
+      }
+
+      section {
+        padding: 2em 1em;
+      }
+
+      .about,
+      .service-text,
+      .quote-form,
+      .product-text {
+        width: 100%;
+        margin: 1em auto;
+        padding: 20px;
+        font-size: medium;
+        transform: none !important; /* disable desktop animations for smaller screens */
+      }
+
+      .product-card {
+        width: 100%;
+        margin: 1em 0;
+        transform: none !important;
+      }
+
+      img {
+        height: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
