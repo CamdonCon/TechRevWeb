@@ -15,42 +15,42 @@
       color: white;
       scroll-behavior: smooth;
     }
-
+  
     nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: #0c9176;
-        height: 7vh;
-        transition: height 0.4s ease;
-        overflow: hidden;
-        border-radius: 0 0 8px 8px;
-        z-index: 999;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #0c9176;
+      height: 7vh;
+      transition: height 0.4s ease;
+      overflow: hidden;
+      border-radius: 0 0 8px 8px;
+      z-index: 999;
     }
-
+  
     nav.open {
       height: 25vh;
     }
-
+  
     .nav-inner {
       display: flex;
       flex-direction: column;
       height: 100%;
     }
-
+  
     .nav-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1em 2em;
     }
-
+  
     .nav-links {
       display: flex;
       gap: 2em;
     }
-
+  
     nav a {
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -58,15 +58,15 @@
       font-weight: bold;
       transition: color 0.2s ease-in-out;
     }
-
+  
     nav a:hover {
-      color: white;            /* keep text white */
+      color: white;
       background-color: rgb(1, 61, 49); 
-      padding: 0.3em 0.6em;    /* some spacing inside the box */
-      border-radius: 4px;      /* optional: rounded corners */
+      padding: 0.3em 0.6em;
+      border-radius: 4px;
       transition: background-color 0.2s ease-in-out;
     }
-
+  
     .menu-icon {
       width: 30px;
       height: 24px;
@@ -75,112 +75,95 @@
       justify-content: space-between;
       cursor: pointer;
     }
-
+  
     .bar {
-        width: 100%;
-        height: 4px;
-        border-radius: 10px;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+      width: 100%;
+      height: 4px;
+      border-radius: 10px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
-
-    /* Top and bottom bar color difference */
+  
     .top-bar {
-        background-color: #3A0CA3; /* example: hot pink */
+      background-color: #3A0CA3;
     }
-
+  
     .bottom-bar {
-        background-color: white; /* example: dodger blue */
+      background-color: white;
     }
-
+  
     .menu-icon.open .top-bar {
-        transform: translateY(10px) rotate(45deg);
+      transform: translateY(10px) rotate(45deg);
     }
-
+  
     .menu-icon.open .bottom-bar {
-        transform: translateY(-10px) rotate(-45deg);
+      transform: translateY(-10px) rotate(-45deg);
     }
-
+  
     section {
       padding: 4em 2em;
       max-width: 1000px;
       margin: auto;
     }
-    
-    .about{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #15616D;
-        padding: 50px 20px 60px 50px; 
-        color: white;
-        width: 500px;
-        height: 700px;
-        font-size: larger;
-        border-radius: 12px;
-        position: relative;
-        z-index: 1;
+  
+    .about,
+    .service-text,
+    .quote-form,
+    .product-text {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px 20px;
+      color: white;
+      max-width: 500px;
+      width: 100%;
+      margin: 1em auto;
+      border-radius: 12px;
+      position: relative;
+      z-index: 1;
+      font-size: 1.1rem;
     }
-
-    select {
-        width: 100%;
-        padding: 0.5em;
-        margin-bottom: 1em;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        background-color: white;
-        font-size: 1em;
+  
+    .about {
+      background-color: #15616D;
     }
-
+  
     .service-text {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #01CDCF;
-        padding: 50px 20px 60px 50px; 
-        color: white;
-        width: 500px;
-        font-size: larger;
-        border-radius: 12px;
-        position: relative;
-        z-index: 1;
-        
-        transform: translateX(-150px);
-        transition: opacity 1s ease-out, transform 1s ease-out;
+      background-color: #01CDCF;
+      transform: translateX(-50px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
     }
-
     .service-text.visible {
-        transform: translateX(0);
+      transform: translateX(0);
     }
-
+  
     .quote-form {
-        background-color: #f9f9f9;
-        color: black;
-        padding: 2em;
-        border-radius: 10px;
-        max-width: 600px;
-        margin: -50px auto 2em auto;
-        position: relative;
-        z-index: 10;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-
-        transform: translateX(200px);
-        transition: opacity 1s ease-out, transform 1s ease-out;
+      background-color: #f9f9f9;
+      color: black;
+      padding: 2em;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 1em auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transform: translateX(50px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
     }
-
     .quote-form.visible {
-        transform: translateX(0);
+      transform: translateX(0);
     }
-
+  
     .quote-form label {
-        display: block;
-        margin-bottom: 0.5em;
-        font-weight: bold;
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
     }
-
-    .quote-form input, .quote-form textarea {
+  
+    .quote-form input, .quote-form textarea, .quote-form select {
       width: 100%;
       padding: 0.5em;
       margin-bottom: 1em;
       border-radius: 4px;
       border: 1px solid #ccc;
+      font-size: 1em;
     }
-
+  
     .quote-form button {
       background-color: #17ffa6;
       color: black;
@@ -189,95 +172,81 @@
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-size: 15px;
     }
-
     .quote-form button:hover {
       background-color: #00c282;
     }
-
+  
     .product-text {
-        background-color: #8338EC;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        padding: 50px 20px 60px 50px; 
-        color: white;
-        width: 500px;
-        font-size: larger;
-        border-radius: 12px;
-        position: relative;
-        margin: 10px auto 2em auto;
-        margin-left: 350px;
-        z-index: 1;
-
-        transform: translateY(+150px);
-        transition: opacity 1s ease-out, transform 1s ease-out;
+      background-color: #8338EC;
+      transform: translateY(50px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+      text-align: center;
     }
-
     .product-text.visible {
-        transform: translateY(0);
+      transform: translateY(0);
     }
-
+  
     .product-card {
-        background: #222;
-        padding: 1em;
-        border-radius: 10px;
-        margin-top: -20px;
-        margin-bottom: 30px;
-        position: relative;
-        border: 5px solid white;
-        z-index: 10;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-
-        transform: translateX(150px);
-        transition: opacity 1s ease-out, transform 1s ease-out;
+      background: #222;
+      padding: 1em;
+      border-radius: 10px;
+      margin: 1em auto;
+      border: 3px solid white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transform: translateX(30px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+      max-width: 500px;
     }
-
     .product-card.visible {
-        transform: translateX(0);
+      transform: translateX(0);
     }
-
+  
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+  
     /* Mobile Styles */
     @media (max-width: 768px) {
       nav {
         height: auto;
         padding: 0.5em;
       }
-
+  
       .nav-row {
         flex-direction: row;
         align-items: flex-start;
         padding: 0.5em 1em;
       }
-
+  
       .nav-links {
         flex-direction: row;
         gap: 1em;
         width: 100%;
         text-align: left;
       }
-
+  
       section {
         padding: 2em 1em;
       }
-
+  
       .about,
       .service-text,
       .quote-form,
-      .product-text {
+      .product-text,
+      .product-card {
         width: 100%;
+        max-width: 100%;
         margin: 1em auto;
         padding: 20px;
         font-size: medium;
-        transform: none !important; /* disable desktop animations for smaller screens */
+        transform: none !important; /* Disable transforms for mobile */
       }
-
-      .product-card {
-        width: 100%;
-        margin: 1em 0;
-        transform: none !important;
-      }
-
+  
       img {
         height: auto !important;
       }
