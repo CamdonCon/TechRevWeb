@@ -17,20 +17,23 @@
     }
 
     nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: #0c9176;
-        height: 7vh;
-        transition: height 0.4s ease;
-        overflow: hidden;
-        border-radius: 0 0 8px 8px;
-        z-index: 999;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #0c9176;
+      height: 10vh; /* Increased from 7vh to 10vh */
+      transition: height 0.4s ease;
+      overflow: hidden;
+      border-radius: 0 0 8px 8px;
+      z-index: 999;
     }
 
-    nav.open {
-      height: 25vh;
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5em 2em; /* Increased from 1em to 1.5em for more vertical space */
     }
 
     .nav-inner {
