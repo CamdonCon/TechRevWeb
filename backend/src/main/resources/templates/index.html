@@ -22,7 +22,7 @@
       left: 0;
       right: 0;
       background-color: #0c9176;
-      height: 10vh; /* Increased from 7vh to 10vh */
+      height: 10vh; /* Taller nav */
       transition: height 0.4s ease;
       overflow: hidden;
       border-radius: 0 0 8px 8px;
@@ -33,7 +33,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5em 2em; /* Increased from 1em to 1.5em for more vertical space */
+      padding: 1.5em 2em;
     }
 
     .nav-inner {
@@ -59,6 +59,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1.2rem; /* Larger font size */
       transition: color 0.2s ease-in-out;
     }
 
@@ -255,14 +256,16 @@
     /* Mobile Styles */
     @media (max-width: 768px) {
       nav {
-        height: auto;
+        height: 12vh; /* Adjusted for mobile */
         padding: 0.5em;
       }
 
       .nav-row {
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 0.5em 1em;
+        padding: 1em; /* Adjust padding */
+      }
+
+      nav a {
+        font-size: 1.4rem; /* Larger links on mobile */
       }
 
       .nav-links {
