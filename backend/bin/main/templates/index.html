@@ -121,16 +121,21 @@
     .about {
       background-color: #15616D;
       width: 100%;
-      padding: 50px 0 50px 0; /* Vertical padding only */
-      border-radius: 0 0 12px 12px; /* Bottom rounded corners */
+      height: calc(100vh - 10vh); /* Full screen minus nav (nav is ~10vh) */
+      padding: 0;                 /* Remove extra padding */
+      border-radius: 0 0 12px 12px;
       box-sizing: border-box;
+
+      display: flex;              /* Center the inner content vertically */
+      align-items: center;        /* Vertical center */
+      justify-content: center;    /* Horizontal center */
     }
 
     .about-inner {
-      max-width: 1000px;   /* Restrict text width for large screens */
-      margin: 0 auto;      /* Center the content */
-      padding: 0 20px;     /* Add horizontal padding for mobile */
-      text-align: center;  /* Center text */
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-size: larger;
