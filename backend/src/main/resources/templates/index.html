@@ -543,36 +543,6 @@
     });
 </script>
 
-<script>
-  function heavyScrollTo(targetY, duration = 1000) { // duration in ms
-    const startY = window.scrollY;
-    const distance = targetY - startY;
-    let startTime;
-
-    function animation(currentTime) {
-      if (!startTime) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      window.scrollTo(0, startY + distance * easeInOutQuad(progress));
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
-
-    function easeInOutQuad(t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
-
-    requestAnimationFrame(animation);
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetElement = document.querySelector(this.getAttribute('href'));
-      heavyScrollTo(targetElement.offsetTop - 70, 1500); // 1.5s scroll
-    });
-  });
-</script>
-
 </body>
 <script>
   window.addEventListener('load', () => {
