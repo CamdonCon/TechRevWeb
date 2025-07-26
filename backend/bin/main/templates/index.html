@@ -120,15 +120,17 @@
     
     .about {
       background-color: #15616D;
-      width: 100%;
-      height: calc(100vh - 10vh); /* Full screen minus nav (nav is ~10vh) */
-      padding: 0;                 /* Remove extra padding */
+      position: relative;
+      width: 100vw;               /* Force full viewport width */
+      height: calc(100vh - 10vh); /* Full screen minus nav */
+      margin: 0;
+      padding: 0;
       border-radius: 0 0 12px 12px;
       box-sizing: border-box;
 
-      display: flex;              /* Center the inner content vertically */
-      align-items: center;        /* Vertical center */
-      justify-content: center;    /* Horizontal center */
+      display: flex;              /* Center content */
+      align-items: center;
+      justify-content: center;
     }
 
     .about-inner {
