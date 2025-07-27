@@ -377,7 +377,10 @@
       }
     }
 
-    /* Scroll padding for products section */
+    /* Scroll padding for home and products section */
+    #home {
+      scroll-margin-top: 10vh; /* offset for fixed nav */
+    }
     #products {
       scroll-margin-top: 3vh; /* More space for mobile nav */
     }
@@ -385,6 +388,9 @@
       scroll-margin-top: 3vh; /* More space for mobile nav */
     }
     @media (max-width: 768px) {
+      #home {
+        scroll-margin-top: 12vh; /* extra offset for smaller screens */
+      }
       #products,
       #services {
         scroll-margin-top: 3vh; /* slightly larger margin for smaller screens */
