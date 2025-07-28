@@ -13,11 +13,33 @@
       position: absolute;
       background-color: #0c9176;
       border-radius: 12px;
-      z-index: 5;
+      z-index: 0;
     }
     .decorative-block.small { width: 40px; height: 40px; }
     .decorative-block.medium { width: 60px; height: 60px; }
     .decorative-block.large { width: 80px; height: 80px; }
+
+    @keyframes floatAround {
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(20px, -20px);
+      }
+      50% {
+        transform: translate(-20px, 20px);
+      }
+      75% {
+        transform: translate(20px, 20px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+
+    .decorative-block {
+      animation: floatAround 10s ease-in-out infinite alternate;
+    }
     #preloader {
       position: fixed;
       top: 0;
