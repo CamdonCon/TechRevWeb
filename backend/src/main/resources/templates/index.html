@@ -9,25 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
   <style>
-    .service-examples {
-      background-color: #108CC0;
-      font-family: 'Quicksand', sans-serif;
-      color: white;
-      padding: 40px 20px;
-      margin: 20px auto;
-      border-radius: 12px;
-      max-width: 600px;
-      text-align: center;
-      font-size: 1.1rem;
-      box-sizing: border-box;
-    }
-    .service-examples ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    .service-examples li {
-      margin: 8px 0;
-    }
     #preloader {
       position: fixed;
       top: 0;
@@ -181,6 +162,28 @@
       max-width: 500px;
       margin: 1em auto;
       box-sizing: border-box;
+    }
+
+    .service-examples-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 1000px;
+    }
+
+    .service-example {
+      background-color: #108CC0;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.3rem;
+      flex: 1 1 calc(33% - 1em);
+      box-sizing: border-box;
+      min-width: 200px;
     }
     
     .about {
@@ -475,19 +478,15 @@
 </section>
 
 <section id="services">
+    <div class="service-examples-container">
+      <div class="service-example">iPhone screen replacements & battery upgrades</div>
+      <div class="service-example">Xbox HDMI port repairs</div>
+      <div class="service-example">Controller drift fixes</div>
+      <div class="service-example">Laptop keyboard & screen repairs</div>
+      <div class="service-example">Tablet & phone charging port replacements</div>
+    </div>
     <div class="service-text">
         <h2>Need it fixed? Get a quote:</h2>
-    </div>
-
-    <div class="service-examples">
-      <h3>Examples of What We Service:</h3>
-      <ul>
-        <li>iPhone screen replacements and battery upgrades</li>
-        <li>Xbox HDMI port repairs</li>
-        <li>Controller drift fixes</li>
-        <li>Laptop keyboard and screen repairs</li>
-        <li>Tablet and phone charging port replacements</li>
-      </ul>
     </div>
 
     <div class="quote-form">
