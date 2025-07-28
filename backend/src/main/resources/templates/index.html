@@ -9,6 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
   <style>
+    .decorative-block {
+      position: absolute;
+      background-color: #0c9176;
+      border-radius: 12px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .decorative-block.small { width: 40px; height: 40px; }
+    .decorative-block.medium { width: 60px; height: 60px; }
+    .decorative-block.large { width: 80px; height: 80px; }
     #preloader {
       position: fixed;
       top: 0;
@@ -40,8 +50,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Quicksand', sans-serif;
-      /* background-color: black; */
-      background-color: #0c9176;
+      background-color: black;
       color: white;
       scroll-behavior: smooth;
       scroll-padding-top: 0;
@@ -429,6 +438,11 @@
 <div id="preloader">
   <div class="spinner"></div>
 </div>
+
+<div class="decorative-block small" style="top: 20%; left: 10%;"></div>
+<div class="decorative-block medium" style="top: 50%; left: 70%;"></div>
+<div class="decorative-block large" style="top: 80%; left: 30%;"></div>
+<div class="decorative-block small" style="top: 40%; left: 85%;"></div>
 
 <!-- NAV -->
 <nav id="navbar">
