@@ -9,29 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
   <style>
-    .decorative-block {
-      position: absolute;
-      background-color: #0c9176;
-      border-radius: 12px;
-      z-index: 0;
-      animation: floatDown 6s linear infinite alternate;
-    }
-    .decorative-block.small { width: 40px; height: 40px; }
-    .decorative-block.medium { width: 60px; height: 60px; }
-    .decorative-block.large { width: 80px; height: 80px; }
-
-    @keyframes floatDown {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(50px);
-      }
-    }
-
-    .decorative-block {
-      animation: floatAround 10s ease-in-out infinite alternate;
-    }
     #preloader {
       position: fixed;
       top: 0;
@@ -451,18 +428,6 @@
 <div id="preloader">
   <div class="spinner"></div>
 </div>
-
-<!-- Decorative background blocks -->
-<div class="decorative-block medium" style="top: 10%; left: 50%;"></div>
-<div class="decorative-block small" style="top: 30%; left: 25%;"></div>
-<div class="decorative-block large" style="top: 60%; left: 15%;"></div>
-<div class="decorative-block medium" style="top: 70%; left: 80%;"></div>
-<div class="decorative-block small" style="top: 90%; left: 45%;"></div>
-<div class="decorative-block medium" style="top: 15%; left: 75%;"></div>
-<div class="decorative-block small" style="top: 20%; left: 10%;"></div>
-<div class="decorative-block medium" style="top: 50%; left: 70%;"></div>
-<div class="decorative-block large" style="top: 80%; left: 30%;"></div>
-<div class="decorative-block small" style="top: 40%; left: 85%;"></div>
 
 <!-- NAV -->
 <nav id="navbar">
