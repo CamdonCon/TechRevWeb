@@ -175,6 +175,8 @@
     }
 
     .service-example {
+      /* background-color: #108CC0; */
+      /* background-color: #0C6A91; */
       background-color: transparent;
       border: 8px solid #0c9176;
       font-family: 'Quicksand', sans-serif;
@@ -186,17 +188,6 @@
       flex: 1 1 calc(33% - 1em);
       box-sizing: border-box;
       min-width: 200px;
-      cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .service-example input:checked + span,
-    .service-example:has(input:checked) {
-      background-color: #0c9176;
-      color: white;
     }
     
     .about {
@@ -497,42 +488,53 @@
 <section id="services" style="position: relative;">
   <div class="service-background"></div>
   <div class="service-section-content">
-    <div class="service-text">
-        <h2>Select the device type:</h2>
+    <div class="service-examples-container">
+      <div class="service-example">iPhone screen replacements & battery upgrades</div>
+      <div class="service-example">Xbox HDMI port repairs</div>
+      <div class="service-example">Controller drift fixes</div>
+      <div class="service-example">Laptop keyboard & screen repairs</div>
+      <div class="service-example">Tablet & phone charging port replacements</div>
     </div>
-    <div class="service-examples-container" id="deviceTypeSelector">
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Phone" hidden><span>Phone</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Laptop" hidden><span>Laptop</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Gaming Console" hidden><span>Gaming Console</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Controller" hidden><span>Controller</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Other" hidden><span>Other</span>
-      </label>
+    <div class="service-text">
+        <h2>Select the brand:</h2>
+    </div>
+    <div class="service-examples-container">
+        <div class="service-example">Apple</div>
+        <div class="service-example">Samsung</div>
+        <div class="service-example">Microsoft</div>
+        <div class="service-example">Sony</div>
+        <div class="service-example">Other</div>
+    </div>
+    <div class="service-text">
+        <h2>Need it fixed? Get a quote:</h2>
     </div>
 
     <div class="quote-form">
-      <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
-        <input type="hidden" name="deviceType" id="hiddenDeviceType" required>
-
+        <label for="deviceType">Device Type:</label>
+        <form action="/quote/submit" method="post" enctype="multipart/form-data">
+        <select name="deviceType" id="deviceType" required onchange="updateBrands()">
+            <option value="">-- Select Device Type --</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Desktop">Desktop</option>
+            <option value="Phone">Phone</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Monitor">Monitor</option>
+            <option value="Gaming Console">Gaming Console</option>
+            <option value="Controller">Controller</option>
+            <option value="Other">Other</option>
+        </select>
+          
         <label for="brand">Brand:</label>
         <select name="brand" id="brand" required>
             <option value="">-- Select Brand --</option>
         </select>
-
+  
         <label for="model">Model:</label>
         <input type="text" name="model" required>
-
+  
         <label for="issue">Issue:</label>
         <textarea name="issue" rows="4" required></textarea>
-
+  
         <label for="image">Upload Image:</label>
         <input type="file" name="image" accept="image/*">
 
@@ -552,15 +554,14 @@
           Controller: ["Nintendo", "Sony", "Xbox", "Other"],
           Other: ["Other"]
         };
-
-        // DeviceType selector logic
-        const deviceTypeSelector = document.getElementById('deviceTypeSelector');
-        const hiddenDeviceType = document.getElementById('hiddenDeviceType');
-        const brandSelect = document.getElementById('brand');
-
-        function updateBrands(deviceType) {
+      
+        function updateBrands() {
+          const deviceType = document.getElementById("deviceType").value;
+          const brandSelect = document.getElementById("brand");
+      
           // Clear existing options
           brandSelect.innerHTML = '<option value="">-- Select Brand --</option>';
+      
           if (deviceType && brandOptions[deviceType]) {
             brandOptions[deviceType].forEach(brand => {
               const option = document.createElement("option");
@@ -570,22 +571,6 @@
             });
           }
         }
-
-        // Listen for changes to the radio buttons
-        deviceTypeSelector.addEventListener('change', function(e) {
-          if (e.target && e.target.name === 'deviceType') {
-            hiddenDeviceType.value = e.target.value;
-            updateBrands(e.target.value);
-          }
-        });
-
-        // On submit, make sure a deviceType is selected
-        document.getElementById('quoteForm').addEventListener('submit', function(e) {
-          if (!hiddenDeviceType.value) {
-            alert('Please select a device type.');
-            e.preventDefault();
-          }
-        });
     </script>
   </div>
 </section>
