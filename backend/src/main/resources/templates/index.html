@@ -175,6 +175,8 @@
     }
 
     .service-example {
+      /* background-color: #108CC0; */
+      /* background-color: #0C6A91; */
       background-color: transparent;
       border: 8px solid #0c9176;
       font-family: 'Quicksand', sans-serif;
@@ -186,17 +188,6 @@
       flex: 1 1 calc(33% - 1em);
       box-sizing: border-box;
       min-width: 200px;
-      cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .service-example input:checked + span,
-    .service-example:has(input:checked) {
-      background-color: #0c9176;
-      color: white;
     }
     
     .about {
@@ -442,6 +433,41 @@
       position: relative;
       z-index: 1;
     }
+
+    .brand-examples-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 1000px;
+    }
+
+    .brand-example {
+      background-color: transparent;
+      border: 4px solid #0c9176;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.1rem;
+      flex: 1 1 calc(25% - 1em);
+      box-sizing: border-box;
+      min-width: 120px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-example input:checked + span,
+    .brand-example:has(input:checked) {
+      background-color: #0c9176;
+      color: white;
+    }
     #home {
       scroll-margin-top: 10vh; /* offset for fixed nav */
     }
@@ -497,35 +523,38 @@
 <section id="services" style="position: relative;">
   <div class="service-background"></div>
   <div class="service-section-content">
+    <div class="service-examples-container">
+      <div class="service-example">iPhone screen replacements & battery upgrades</div>
+      <div class="service-example">Xbox HDMI port repairs</div>
+      <div class="service-example">Controller drift fixes</div>
+      <div class="service-example">Laptop keyboard & screen repairs</div>
+      <div class="service-example">Tablet & phone charging port replacements</div>
+    </div>
     <div class="service-text">
-        <h2>Select the device type:</h2>
+        <h2>Need it fixed? Get a quote:</h2>
     </div>
-    <div class="service-examples-container" id="deviceTypeSelector">
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Phone" hidden><span>Phone</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Laptop" hidden><span>Laptop</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Gaming Console" hidden><span>Gaming Console</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Controller" hidden><span>Controller</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Other" hidden><span>Other</span>
-      </label>
+    <div class="service-text">
+        <h2>Select the brand:</h2>
     </div>
-
+    <div class="brand-examples-container" id="brandSelector">
+      <!-- Brand buttons will be dynamically inserted -->
+    </div>
     <div class="quote-form">
-      <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
-        <input type="hidden" name="deviceType" id="hiddenDeviceType" required>
-
-        <label for="brand">Brand:</label>
-        <select name="brand" id="brand" required>
-            <option value="">-- Select Brand --</option>
+        <form id="quoteForm" action="/quote/submit" method="post" enctype="multipart/form-data">
+        <label for="deviceType">Device Type:</label>
+        <select name="deviceType" id="deviceType" required onchange="updateBrands()">
+            <option value="">-- Select Device Type --</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Desktop">Desktop</option>
+            <option value="Phone">Phone</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Monitor">Monitor</option>
+            <option value="Gaming Console">Gaming Console</option>
+            <option value="Controller">Controller</option>
+            <option value="Other">Other</option>
         </select>
+
+        <input type="hidden" name="brand" id="hiddenBrand" required>
 
         <label for="model">Model:</label>
         <input type="text" name="model" required>
@@ -553,36 +582,38 @@
           Other: ["Other"]
         };
 
-        // DeviceType selector logic
-        const deviceTypeSelector = document.getElementById('deviceTypeSelector');
-        const hiddenDeviceType = document.getElementById('hiddenDeviceType');
-        const brandSelect = document.getElementById('brand');
-
-        function updateBrands(deviceType) {
-          // Clear existing options
-          brandSelect.innerHTML = '<option value="">-- Select Brand --</option>';
+        function updateBrands() {
+          const deviceType = document.getElementById("deviceType").value;
+          const brandSelector = document.getElementById('brandSelector');
+          brandSelector.innerHTML = ''; // clear old brands
           if (deviceType && brandOptions[deviceType]) {
             brandOptions[deviceType].forEach(brand => {
-              const option = document.createElement("option");
-              option.value = brand;
-              option.textContent = brand;
-              brandSelect.appendChild(option);
+              const label = document.createElement('label');
+              label.classList.add('brand-example');
+              label.innerHTML = `<input type="radio" name="brandSelect" value="${brand}" hidden><span>${brand}</span>`;
+              brandSelector.appendChild(label);
             });
           }
+          // Reset hiddenBrand when device type changes
+          document.getElementById('hiddenBrand').value = '';
         }
 
-        // Listen for changes to the radio buttons
-        deviceTypeSelector.addEventListener('change', function(e) {
-          if (e.target && e.target.name === 'deviceType') {
-            hiddenDeviceType.value = e.target.value;
-            updateBrands(e.target.value);
+        // Listen for brand selection
+        const hiddenBrand = document.getElementById('hiddenBrand');
+        document.getElementById('brandSelector').addEventListener('change', function(e) {
+          if (e.target && e.target.name === 'brandSelect') {
+            hiddenBrand.value = e.target.value;
           }
         });
 
-        // On submit, make sure a deviceType is selected
+        // Ensure device type and brand are selected before submitting
         document.getElementById('quoteForm').addEventListener('submit', function(e) {
-          if (!hiddenDeviceType.value) {
+          const deviceType = document.getElementById('deviceType').value;
+          if (!deviceType) {
             alert('Please select a device type.');
+            e.preventDefault();
+          } else if (!hiddenBrand.value) {
+            alert('Please select a brand.');
             e.preventDefault();
           }
         });
