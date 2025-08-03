@@ -41,7 +41,6 @@
       padding: 0;
       font-family: 'Quicksand', sans-serif;
       background-color: black;
-      /* background-color: #108CC0; */
       color: white;
       scroll-behavior: smooth;
       scroll-padding-top: 0;
@@ -54,7 +53,6 @@
       left: 0;
       right: 0;
       background-color: #0C6A91;
-      /* background-color: #0c9176; */
       height: 10vh; /* Taller nav */
       transition: height 0.4s ease;
       overflow: hidden;
@@ -84,16 +82,12 @@
 
     nav a {
       color: white;
-      /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
       font-family: 'Quicksand', sans-serif;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.2rem;
       line-height: 10vh; /* matches nav height for vertical centering */
       transition: color 0.2s ease-in-out;
-    }
-
-    nav a {
       position: relative;
     }
 
@@ -132,14 +126,12 @@
         transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    /* Top and bottom bar color difference */
     .top-bar {
-        /* background-color: #3A0CA3; example: hot pink */
         background-color: #0c9176;
     }
 
     .bottom-bar {
-        background-color: white; /* example: dodger blue */
+        background-color: white;
     }
 
     .menu-icon.open .top-bar {
@@ -199,27 +191,23 @@
     }
     
     .about {
-      /* background-color: #15616D; */
       background-color: #0C6A91;
-      /* background-color: #0c9176; */
       position: relative;
       left: 0;
       right: 0;
-      width: 100vw;               /* Full viewport width */
-      max-width: none;            /* Override section max-width */
-      height: calc(100vh - 10vh); /* Full screen minus nav */
+      width: 100vw;
+      max-width: none;
+      height: calc(100vh - 10vh);
       margin: 0;
       padding: 0;
       border-radius: 0 0 12px 12px;
       box-sizing: border-box;
-
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .footer {
-      /* background-color: #108CC0; */
       background-color: #0c9176;
       width: 100vw;
       max-width: none;
@@ -228,7 +216,6 @@
       padding: 2em 20px;
       border-radius: 12px 12px 0 0;
       box-sizing: border-box;
-
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -247,14 +234,13 @@
       padding: 0 20px;
       text-align: center;
       color: white;
-      /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
       font-family: 'Quicksand', sans-serif;
       font-size: larger;
     }
 
     .about-inner h1 {
       font-size: 4rem;
-      font-family: 'Quicksand', sans-serif; /* Rounder font */
+      font-family: 'Quicksand', sans-serif;
       text-align: left;
       line-height: 1.2;
       letter-spacing: 1px;
@@ -263,19 +249,8 @@
       margin: 0;
     }
 
-    select {
-        width: 100%;
-        padding: 0.5em;
-        margin-bottom: 1em;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        background-color: white;
-        font-size: 1em;
-    }
-
     .service-text {
         font-family: 'Quicksand', sans-serif;
-        /* background-color: #0C9134; */
         background-color: #0C6A91;
         padding: 50px 20px;
         color: white;
@@ -285,11 +260,13 @@
         z-index: 1;
         text-align: center;
         
+        opacity: 0;
         transform: translateX(-150px);
         transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .service-text.visible {
+        opacity: 1;
         transform: translateX(0);
     }
     
@@ -298,14 +275,23 @@
       border: 8px solid #0c9176;
       padding: 2em;
       border-radius: 12px;
-      margin: -20px auto 2em auto;
+      margin: 20px auto;
       max-width: 500px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 10;
+      box-sizing: border-box;
+    }
+    
+    .service-examples-container, .input-container {
+        opacity: 0;
+        transform: translateY(100px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
-    .input-container input, .input-container textarea {
+    .service-examples-container.visible, .input-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .input-container input, .input-container textarea, .input-container label {
       width: 100%;
       padding: 0.8em;
       margin-bottom: 1em;
@@ -314,15 +300,18 @@
       box-sizing: border-box;
       font-family: 'Quicksand', sans-serif;
       font-size: 1rem;
+      color: black;
+    }
+
+    .input-container label {
+        color: white;
+        border: none;
+        padding: 0;
     }
     
     .input-container textarea {
         min-height: 150px;
         resize: vertical;
-    }
-
-    .input-container input:last-child, .input-container textarea:last-child {
-        margin-bottom: 0;
     }
 
     #submit-btn-container {
@@ -347,9 +336,7 @@
       background-color: #0C9134;
     }
 
-
     .product-text {
-        /* background-color: #8338EC; */
         background-color: #0C6A91;
         font-family: 'Quicksand', sans-serif;
         padding: 50px 20px;
@@ -358,20 +345,20 @@
         border-radius: 12px;
         position: relative;
         margin: 10px auto 2em auto;
-        /* margin-left: 350px; */
         z-index: 1;
         text-align: center;
 
-        transform: translateY(+150px);
+        opacity: 0;
+        transform: translateY(150px);
         transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .product-text.visible {
+        opacity: 1;
         transform: translateY(0);
     }
 
     .product-card {
-        /* background-color: #0c9176; */
         background-color: #f9f9f9;
         font-family: 'Quicksand', sans-serif;
         color: black;
@@ -385,27 +372,29 @@
         max-width: 100%;
         box-sizing: border-box;
 
+        opacity: 0;
         transform: translateX(150px);
         transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .product-card.visible {
+        opacity: 1;
         transform: translateX(0);
     }
 
     /* Mobile Styles */
     @media (max-width: 768px) {
       nav {
-        height: 9vh; /* Adjusted for mobile */
+        height: 9vh;
         padding: 0.5em;
       }
 
       .nav-row {
-        padding: 1em; /* Adjust padding */
+        padding: 1em;
       }
 
       nav a {
-        font-size: 1.2rem; /* Larger links on mobile */
+        font-size: 1.2rem;
       }
 
       .nav-links {
@@ -422,18 +411,16 @@
       .about,
       .service-text,
       .input-container,
-      .product-text {
+      .product-text,
+      .product-card,
+      .service-examples-container {
         width: 100%;
         margin: 1em auto;
-        padding: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
         font-size: medium;
-        transform: none !important; /* disable desktop animations for smaller screens */
-      }
-
-      .product-card {
-        width: 100%;
-        margin: 1em 0;
         transform: none !important;
+        opacity: 1 !important;
       }
 
       img {
@@ -446,21 +433,18 @@
       z-index: 1;
     }
     #home {
-      scroll-margin-top: 10vh; /* offset for fixed nav */
+      scroll-margin-top: 10vh;
     }
-    #products {
-      scroll-margin-top: 3vh; /* More space for mobile nav */
-    }
-    #services {
-      scroll-margin-top: 3vh; /* More space for mobile nav */
+    #products, #services {
+      scroll-margin-top: 3vh;
     }
     @media (max-width: 768px) {
       #home {
-        scroll-margin-top: 12vh; /* extra offset for smaller screens */
+        scroll-margin-top: 12vh;
       }
       #products,
       #services {
-        scroll-margin-top: 7vh; /* larger margin to prevent cutoff */
+        scroll-margin-top: 7vh;
       }
     }
   </style>
@@ -540,7 +524,7 @@
       </div>
       <div class="input-container">
         <textarea name="issue" placeholder="e.g., The screen is cracked and the battery dies quickly." required></textarea>
-        <label for="image" style="font-weight: bold; margin-bottom: 0.5em; display: block;">Upload Image (Optional):</label>
+        <label for="image">Upload Image (Optional):</label>
         <input type="file" name="image" accept="image/*">
       </div>
 
@@ -588,7 +572,7 @@
                 
                 const input = document.createElement('input');
                 input.type = 'radio';
-                input.name = 'brandRadio'; // Use a different name to avoid conflict
+                input.name = 'brandRadio';
                 input.value = brand;
                 input.hidden = true;
 
@@ -657,24 +641,23 @@
 </script>
 
 <script>
-    const animatedTargets = document.querySelectorAll('.service-text, .product-text, .product-card');
+    const animatedElements = document.querySelectorAll(
+      '.service-text, .service-examples-container, .input-container, .product-text, .product-card'
+    );
   
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.intersectionRatio >= 0.5) {
+        if (entry.isIntersecting) {
           entry.target.classList.add('visible');
         } else {
-          // Optional: remove class when it scrolls out of view
-          // entry.target.classList.remove('visible');
+          entry.target.classList.remove('visible');
         }
       });
     }, {
-      threshold: 0.5
+      threshold: 0.1
     });
   
-    animatedTargets.forEach(target => {
-      observer.observe(target);
-    });
+    animatedElements.forEach(el => observer.observe(el));
 </script>
 
 <footer class="footer">
@@ -692,4 +675,4 @@
     document.getElementById('preloader').style.display = 'none';
   });
 </script>
-</html>
+</html>```
