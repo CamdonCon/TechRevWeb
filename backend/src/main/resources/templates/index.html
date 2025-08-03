@@ -157,15 +157,14 @@
     }
 
     .service-text,
-    .product-text,
-    .quote-form {
+    .product-text {
       width: 100%;
       max-width: 500px;
       margin: 1em auto;
       box-sizing: border-box;
     }
 
-    .service-examples-container {
+    .service-examples-container, .input-container {
       display: flex;
       flex-wrap: wrap;
       gap: 1em;
@@ -293,57 +292,61 @@
     .service-text.visible {
         transform: translateX(0);
     }
-
-    .quote-form {
-        background-color: #f9f9f9;
-        font-family: 'Quicksand', sans-serif;
-        
-        color: black;
-        padding: 3em;
-        border-radius: 10px;
-        margin: -50px auto 2em auto;
-        position: relative;
-        z-index: 10;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-
-        transform: translateX(0);
-        transition: opacity 1s ease-out, transform 1s ease-out;
+    
+    .input-container {
+      background-color: transparent;
+      border: 8px solid #0c9176;
+      padding: 2em;
+      border-radius: 12px;
+      margin: -20px auto 2em auto;
+      max-width: 500px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 10;
     }
 
-    .quote-form.visible {
-        transform: translateX(200);
-    }
-
-    .quote-form label {
-        display: block;
-        margin-bottom: 0.5em;
-        font-weight: bold;
-    }
-
-    .quote-form input, .quote-form textarea {
+    .input-container input, .input-container textarea {
       width: 100%;
-      padding: 0.5em;
+      padding: 0.8em;
       margin-bottom: 1em;
-      border-radius: 4px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+    }
+    
+    .input-container textarea {
+        min-height: 150px;
+        resize: vertical;
     }
 
-    .quote-form button {
-      /* background-color: #0C9134; */
+    .input-container input:last-child, .input-container textarea:last-child {
+        margin-bottom: 0;
+    }
+
+    #submit-btn-container {
+      text-align: center;
+      margin-top: 2em;
+    }
+    
+    #submit-btn {
       background-color: #0C6A91;
       color: white;
-      padding: 0.75em 1.5em;
+      padding: 0.75em 2.5em;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 15px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
     }
 
-    .quote-form button:hover {
+    #submit-btn:hover {
       background-color: #0C9134;
     }
+
 
     .product-text {
         /* background-color: #8338EC; */
@@ -418,7 +421,7 @@
 
       .about,
       .service-text,
-      .quote-form,
+      .input-container,
       .product-text {
         width: 100%;
         margin: 1em auto;
@@ -493,134 +496,138 @@
   </div>
 </section>
 
-</section>
 <section id="services" style="position: relative;">
-  <div class="service-section-content">
-    <div class="service-text">
-        <h2>Select the device type:</h2>
-    </div>
-    <div class="service-examples-container" id="deviceTypeSelector">
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Phone" hidden><span>Phone</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Laptop" hidden><span>Laptop</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Gaming Console" hidden><span>Gaming Console</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Controller" hidden><span>Controller</span>
-      </label>
-      <label class="service-example">
-        <input type="radio" name="deviceType" value="Other" hidden><span>Other</span>
-      </label>
-    </div>
+  <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
+    <div class="service-section-content">
+      
+      <div class="service-text">
+          <h2>Select the device type:</h2>
+      </div>
+      <div class="service-examples-container" id="deviceTypeSelector">
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Phone" hidden><span>Phone</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Laptop" hidden><span>Laptop</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Gaming Console" hidden><span>Gaming Console</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Controller" hidden><span>Controller</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Other" hidden><span>Other</span>
+        </label>
+      </div>
 
-    <div class="service-text">
-      <h2>Select the brand:</h2>
-    </div>
-    <div class="service-examples-container" id="brandSelector">
-      <!-- Brands will be dynamically inserted here -->
-    </div>
+      <div class="service-text">
+        <h2>Select the brand:</h2>
+      </div>
+      <div class="service-examples-container" id="brandSelector">
+        <!-- Brands will be dynamically inserted here -->
+      </div>
 
-    <div class="service-text">
-      <h2>Enter the model:</h2>
-    </div>
-    <div class="service-text">
-      <h2>Describe the issue:</h2>
-    </div>
-    <div class="service-text">
-      <h2>Contact information:</h2>
-    </div>
+      <div class="service-text">
+        <h2>Enter the model:</h2>
+      </div>
+      <div class="input-container">
+          <input type="text" name="model" placeholder="e.g., iPhone 14 Pro, Dell XPS 15" required>
+      </div>
 
-    <div class="quote-form">
-      <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
-        <input type="hidden" name="deviceType" id="hiddenDeviceType" required>
-        <input type="hidden" name="brand" id="hiddenBrand" required>
-
-        <label for="model">Model:</label>
-        <input type="text" name="model" required>
-
-        <label for="issue">Issue:</label>
-        <textarea name="issue" rows="4" required></textarea>
-
-        <label for="image">Upload Image:</label>
+      <div class="service-text">
+        <h2>Describe the issue:</h2>
+      </div>
+      <div class="input-container">
+        <textarea name="issue" placeholder="e.g., The screen is cracked and the battery dies quickly." required></textarea>
+        <label for="image" style="font-weight: bold; margin-bottom: 0.5em; display: block;">Upload Image (Optional):</label>
         <input type="file" name="image" accept="image/*">
+      </div>
 
-        <div style="text-align: right;">
-            <button type="submit">Submit</button>
-        </div>
-      </form>
+      <div class="service-text">
+        <h2>Contact information:</h2>
+      </div>
+      <div class="input-container">
+          <input type="text" name="contactName" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email Address" required>
+          <input type="tel" name="phone" placeholder="Your Phone Number" required>
+      </div>
+      
+      <div id="submit-btn-container">
+        <button type="submit" id="submit-btn">Get a Quote</button>
+      </div>
+
+      <input type="hidden" name="deviceType" id="hiddenDeviceType" required>
+      <input type="hidden" name="brand" id="hiddenBrand" required>
+      
+      <script>
+          const brandOptions = {
+            Laptop: ["Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "Razer", "Microsoft", "Other"],
+            Desktop: ["Dell", "HP", "Lenovo", "Asus", "Acer", "Other"],
+            Phone: ["Apple", "Samsung", "Google", "OnePlus", "Other"],
+            Tablet: ["Apple", "Samsung", "Microsoft", "Other"],
+            Monitor: ["Dell", "LG", "Samsung", "Asus", "Other"],
+            "Gaming Console": ["Nintendo", "Sony", "Xbox", "Other"],
+            Controller: ["Nintendo", "Sony", "Xbox", "Other"],
+            Other: ["Other"]
+          };
+
+          const deviceTypeSelector = document.getElementById('deviceTypeSelector');
+          const hiddenDeviceType = document.getElementById('hiddenDeviceType');
+          const brandSelector = document.getElementById('brandSelector');
+          const hiddenBrand = document.getElementById('hiddenBrand');
+
+          function updateBrands(deviceType) {
+            brandSelector.innerHTML = ''; 
+            hiddenBrand.value = ''; 
+
+            if (deviceType && brandOptions[deviceType]) {
+              brandOptions[deviceType].forEach(brand => {
+                const label = document.createElement('label');
+                label.className = 'service-example';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'brandRadio'; // Use a different name to avoid conflict
+                input.value = brand;
+                input.hidden = true;
+
+                const span = document.createElement('span');
+                span.textContent = brand;
+
+                label.appendChild(input);
+                label.appendChild(span);
+                brandSelector.appendChild(label);
+              });
+            }
+          }
+
+          deviceTypeSelector.addEventListener('change', function(e) {
+            if (e.target && e.target.name === 'deviceType') {
+              hiddenDeviceType.value = e.target.value;
+              updateBrands(e.target.value);
+            }
+          });
+
+          brandSelector.addEventListener('change', function(e) {
+            if (e.target && e.target.name === 'brandRadio') {
+              hiddenBrand.value = e.target.value;
+            }
+          });
+
+          document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            if (!hiddenDeviceType.value) {
+              alert('Please select a device type.');
+              e.preventDefault();
+            }
+            if (!hiddenBrand.value) {
+              alert('Please select a brand.');
+              e.preventDefault();
+            }
+          });
+      </script>
     </div>
-    <script>
-        const brandOptions = {
-          Laptop: ["Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "Razer", "Microsoft", "Other"],
-          Desktop: ["Dell", "HP", "Lenovo", "Asus", "Acer", "Other"],
-          Phone: ["Apple", "Samsung", "Google", "OnePlus", "Other"],
-          Tablet: ["Apple", "Samsung", "Microsoft", "Other"],
-          Monitor: ["Dell", "LG", "Samsung", "Asus", "Other"],
-          "Gaming Console": ["Nintendo", "Sony", "Xbox", "Other"],
-          Controller: ["Nintendo", "Sony", "Xbox", "Other"],
-          Other: ["Other"]
-        };
-
-        const deviceTypeSelector = document.getElementById('deviceTypeSelector');
-        const hiddenDeviceType = document.getElementById('hiddenDeviceType');
-        const brandSelector = document.getElementById('brandSelector');
-        const hiddenBrand = document.getElementById('hiddenBrand');
-
-        function updateBrands(deviceType) {
-          brandSelector.innerHTML = ''; // Clear existing brand options
-          hiddenBrand.value = ''; // Reset hidden brand value
-
-          if (deviceType && brandOptions[deviceType]) {
-            brandOptions[deviceType].forEach(brand => {
-              const label = document.createElement('label');
-              label.className = 'service-example';
-              
-              const input = document.createElement('input');
-              input.type = 'radio';
-              input.name = 'brand';
-              input.value = brand;
-              input.hidden = true;
-
-              const span = document.createElement('span');
-              span.textContent = brand;
-
-              label.appendChild(input);
-              label.appendChild(span);
-              brandSelector.appendChild(label);
-            });
-          }
-        }
-
-        deviceTypeSelector.addEventListener('change', function(e) {
-          if (e.target && e.target.name === 'deviceType') {
-            hiddenDeviceType.value = e.target.value;
-            updateBrands(e.target.value);
-          }
-        });
-
-        brandSelector.addEventListener('change', function(e) {
-          if (e.target && e.target.name === 'brand') {
-            hiddenBrand.value = e.target.value;
-          }
-        });
-
-        document.getElementById('quoteForm').addEventListener('submit', function(e) {
-          if (!hiddenDeviceType.value) {
-            alert('Please select a device type.');
-            e.preventDefault();
-          }
-          if (!hiddenBrand.value) {
-            alert('Please select a brand.');
-            e.preventDefault();
-          }
-        });
-    </script>
-  </div>
-</section>
+  </form>
 </section>
 
 <section id="products">
@@ -650,82 +657,23 @@
 </script>
 
 <script>
-    const target = document.querySelector('.service-text');
+    const animatedTargets = document.querySelectorAll('.service-text, .product-text, .product-card');
   
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.intersectionRatio >= 0.5) {
           entry.target.classList.add('visible');
         } else {
-          entry.target.classList.remove('visible');
+          // Optional: remove class when it scrolls out of view
+          // entry.target.classList.remove('visible');
         }
       });
     }, {
-      threshold: [0, 0.5, 1]
+      threshold: 0.5
     });
   
-    if (target) {
+    animatedTargets.forEach(target => {
       observer.observe(target);
-    }
-</script>
-
-<script>
-    const formTarget = document.querySelector('.quote-form');
-  
-    const formObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.intersectionRatio >= 0.5) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, {
-      threshold: [0, 0.5, 1]
-    });
-  
-    if (formTarget) {
-      formObserver.observe(formTarget);
-    }
-</script>
-
-<script>
-    const productTarget = document.querySelector('.product-text');
-  
-    const productObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.intersectionRatio >= 0.5) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, {
-      threshold: [0, 0.5, 1]
-    });
-  
-    if (productTarget) {
-      productObserver.observe(productTarget);
-    }
-</script>
-
-<script>
-    const productCards = document.querySelectorAll('.product-card');
-  
-    const cardObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.intersectionRatio >= 0.5) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, {
-      threshold: [0, 0.5, 1]
-    });
-  
-    productCards.forEach(card => {
-      cardObserver.observe(card);
     });
 </script>
 
