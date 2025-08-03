@@ -520,6 +520,10 @@
     <div class="service-text">
       <h2>Select the brand:</h2>
     </div>
+    <div class="service-examples-container" id="brandSelector">
+      <!-- Brands will be dynamically inserted here -->
+    </div>
+
     <div class="service-text">
       <h2>Enter the model:</h2>
     </div>
@@ -533,11 +537,7 @@
     <div class="quote-form">
       <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
         <input type="hidden" name="deviceType" id="hiddenDeviceType" required>
-
-        <label for="brand">Brand:</label>
-        <select name="brand" id="brand" required>
-            <option value="">-- Select Brand --</option>
-        </select>
+        <input type="hidden" name="brand" id="hiddenBrand" required>
 
         <label for="model">Model:</label>
         <input type="text" name="model" required>
@@ -565,25 +565,36 @@
           Other: ["Other"]
         };
 
-        // DeviceType selector logic
         const deviceTypeSelector = document.getElementById('deviceTypeSelector');
         const hiddenDeviceType = document.getElementById('hiddenDeviceType');
-        const brandSelect = document.getElementById('brand');
+        const brandSelector = document.getElementById('brandSelector');
+        const hiddenBrand = document.getElementById('hiddenBrand');
 
         function updateBrands(deviceType) {
-          // Clear existing options
-          brandSelect.innerHTML = '<option value="">-- Select Brand --</option>';
+          brandSelector.innerHTML = ''; // Clear existing brand options
+          hiddenBrand.value = ''; // Reset hidden brand value
+
           if (deviceType && brandOptions[deviceType]) {
             brandOptions[deviceType].forEach(brand => {
-              const option = document.createElement("option");
-              option.value = brand;
-              option.textContent = brand;
-              brandSelect.appendChild(option);
+              const label = document.createElement('label');
+              label.className = 'service-example';
+              
+              const input = document.createElement('input');
+              input.type = 'radio';
+              input.name = 'brand';
+              input.value = brand;
+              input.hidden = true;
+
+              const span = document.createElement('span');
+              span.textContent = brand;
+
+              label.appendChild(input);
+              label.appendChild(span);
+              brandSelector.appendChild(label);
             });
           }
         }
 
-        // Listen for changes to the radio buttons
         deviceTypeSelector.addEventListener('change', function(e) {
           if (e.target && e.target.name === 'deviceType') {
             hiddenDeviceType.value = e.target.value;
@@ -591,10 +602,19 @@
           }
         });
 
-        // On submit, make sure a deviceType is selected
+        brandSelector.addEventListener('change', function(e) {
+          if (e.target && e.target.name === 'brand') {
+            hiddenBrand.value = e.target.value;
+          }
+        });
+
         document.getElementById('quoteForm').addEventListener('submit', function(e) {
           if (!hiddenDeviceType.value) {
             alert('Please select a device type.');
+            e.preventDefault();
+          }
+          if (!hiddenBrand.value) {
+            alert('Please select a brand.');
             e.preventDefault();
           }
         });
@@ -711,7 +731,7 @@
 
 <footer class="footer">
   <h2>Seattle Tech Revive</h2>
-  <p>&copy; 2025 Seattle Tech Revive. All rights reserved.</p>
+  <p>© 2025 Seattle Tech Revive. All rights reserved.</p>
   <p>
     <a href="#home" style="color:white; text-decoration: underline;">Back to top</a>
   </p>
