@@ -248,6 +248,23 @@
       text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
       margin: 0;
     }
+    
+    .flicker {
+      animation: flicker-effect 2.5s linear infinite;
+    }
+
+    @keyframes flicker-effect {
+      0%, 100% { opacity: 1; }
+      15.1% { opacity: 0.3; }
+      15.2% { opacity: 1; }
+      30.1% { opacity: 0.5; }
+      30.2% { opacity: 1; }
+      65.1% { opacity: 0.4; }
+      65.2% { opacity: 1; }
+      80.1% { opacity: 0.8; }
+      80.2% { opacity: 1; }
+    }
+
 
     .service-text {
         font-family: 'Quicksand', sans-serif;
@@ -260,11 +277,13 @@
         z-index: 1;
         text-align: center;
         
+        opacity: 0;
         transform: translateX(-150px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .service-text.visible {
+        opacity: 1;
         transform: translateX(0);
     }
     
@@ -279,11 +298,13 @@
     }
     
     .service-examples-container, .input-container {
+        opacity: 0;
         transform: translateY(100px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .service-examples-container.visible, .input-container.visible {
+        opacity: 1;
         transform: translateY(0);
     }
 
@@ -344,11 +365,13 @@
         z-index: 1;
         text-align: center;
 
+        opacity: 0;
         transform: translateY(150px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .product-text.visible {
+        opacity: 1;
         transform: translateY(0);
     }
 
@@ -366,11 +389,13 @@
         max-width: 100%;
         box-sizing: border-box;
 
+        opacity: 0;
         transform: translateX(150px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .product-card.visible {
+        opacity: 1;
         transform: translateX(0);
     }
 
@@ -408,18 +433,11 @@
       .service-examples-container {
         width: 100%;
         margin: 1em auto;
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 20px;
+        padding-right: 20px;
         font-size: medium;
         transform: none !important;
-      }
-
-      .input-container {
-        padding: 1.5em; /* Adjust padding for smaller screens */
-      }
-      
-      .service-example {
-        font-size: 1.1rem;
+        opacity: 1 !important;
       }
 
       img {
@@ -474,7 +492,7 @@
 <!-- SECTIONS -->
 <section id="home" class="about">
   <div class="about-inner">
-    <h1>Seattle<br>Tech<br>Revive</h1>
+    <h1><span id="typing-effect"></span><br>Tech<br><span class="flicker">Revive</span></h1>
     <p>At Seattle Tech Revive, we are passionate about giving technology a second life. We specialize in high-quality refurbished devices and reliable, affordable repair services for laptops, phones, desktops, and more. Our team of skilled technicians ensures every device is thoroughly tested, repaired, and restored to meet top performance standards. Whether you’re looking for a budget-friendly device or need a quick repair, Seattle Tech Revive is your trusted partner for all things tech.</p>
   </div>
 </section>
@@ -657,6 +675,28 @@
     });
   
     animatedElements.forEach(el => observer.observe(el));
+    
+    // Typing effect for hero title
+    const typingText = "Seattle";
+    const typingElement = document.getElementById('typing-effect');
+    let i = 0;
+    function typeWriter() {
+      if (i < typingText.length) {
+        typingElement.innerHTML += typingText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 150);
+      } else {
+        setTimeout(() => {
+          typingElement.innerHTML = '';
+          i = 0;
+          typeWriter();
+        }, 3000);
+      }
+    }
+    
+    // Start typing after a short delay
+    setTimeout(typeWriter, 500);
+
 </script>
 
 <footer class="footer">
