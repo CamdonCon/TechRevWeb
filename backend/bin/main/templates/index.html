@@ -260,11 +260,13 @@
         z-index: 1;
         text-align: center;
         
+        opacity: 0;
         transform: translateX(-150px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .service-text.visible {
+        opacity: 1;
         transform: translateX(0);
     }
     
@@ -279,11 +281,13 @@
     }
     
     .service-examples-container, .input-container {
+        opacity: 0;
         transform: translateY(100px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .service-examples-container.visible, .input-container.visible {
+        opacity: 1;
         transform: translateY(0);
     }
 
@@ -344,11 +348,13 @@
         z-index: 1;
         text-align: center;
 
+        opacity: 0;
         transform: translateY(150px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .product-text.visible {
+        opacity: 1;
         transform: translateY(0);
     }
 
@@ -366,13 +372,60 @@
         max-width: 100%;
         box-sizing: border-box;
 
+        opacity: 0;
         transform: translateX(150px);
-        transition: transform 1s ease-out;
+        transition: opacity 1s ease-out, transform 1s ease-out;
     }
 
     .product-card.visible {
+        opacity: 1;
         transform: translateX(0);
     }
+    
+    /* Testimonial Section Styles */
+    #testimonials {
+      background-color: #0C6A91;
+      padding: 4em 2em;
+      text-align: center;
+      color: white;
+    }
+
+    #testimonials h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1em;
+    }
+
+    .testimonial-carousel {
+      max-width: 800px;
+      margin: auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .testimonial-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .testimonial-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 2em;
+      background-color: #0c9176;
+      border-radius: 12px;
+      margin: 0 1em;
+    }
+
+    .testimonial-slide p {
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    .testimonial-slide .author {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+
 
     /* Mobile Styles */
     @media (max-width: 768px) {
@@ -408,18 +461,11 @@
       .service-examples-container {
         width: 100%;
         margin: 1em auto;
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 20px;
+        padding-right: 20px;
         font-size: medium;
         transform: none !important;
-      }
-
-      .input-container {
-        padding: 1.5em; /* Adjust padding for smaller screens */
-      }
-      
-      .service-example {
-        font-size: 1.1rem;
+        opacity: 1 !important;
       }
 
       img {
@@ -434,15 +480,35 @@
     #home {
       scroll-margin-top: 10vh;
     }
-    #products, #services {
+    #products, #services, #testimonials {
       scroll-margin-top: 3vh;
     }
+    
+    /* Form Progress Bar */
+    #form-progress-bar-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 2em auto;
+        background-color: #333;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    #form-progress-bar {
+        width: 0%;
+        height: 10px;
+        background-color: #0C9134;
+        transition: width 0.5s ease-out;
+    }
+
+
     @media (max-width: 768px) {
       #home {
         scroll-margin-top: 12vh;
       }
       #products,
-      #services {
+      #services,
+      #testimonials {
         scroll-margin-top: 7vh;
       }
     }
@@ -462,6 +528,7 @@
         <a href="#home">HOME</a>
         <a href="#products">PRODUCTS</a>
         <a href="#services">SERVICES</a>
+        <a href="#testimonials">TESTIMONIALS</a>
       </div>
       <div class="menu-icon" id="menuBtn">
         <div class="bar top-bar"></div>
@@ -474,14 +541,18 @@
 <!-- SECTIONS -->
 <section id="home" class="about">
   <div class="about-inner">
-    <h1>Seattle<br>Tech<br>Revive</h1>
-    <p>At Seattle Tech Revive, we are passionate about giving technology a second life. We specialize in high-quality refurbished devices and reliable, affordable repair services for laptops, phones, desktops, and more. Our team of skilled technicians ensures every device is thoroughly tested, repaired, and restored to meet top performance standards. Whether you’re looking for a budget-friendly device or need a quick repair, Seattle Tech Revive is your trusted partner for all things tech.</p>
+    <h1><span id="typing-effect"></span><br>Tech<br>Revive</h1>
+    <p>At Seattle Tech Revive, we are passionate about giving technology a second life. We specialize in high-quality refurbished devices and reliable, affordable repair services for laptops, phones, desktops, and more. Our team of skilled technicians ensures every device is thoroughly tested, repaired, and restored to meet top performance standards. Whether you’re looking for a budget-friendly device or need a quick repair, Seattle Tech Revive is your trusted partner for all things tech.”</p>
   </div>
 </section>
 
 <section id="services" style="position: relative;">
   <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
     <div class="service-section-content">
+      
+      <div id="form-progress-bar-container">
+          <div id="form-progress-bar"></div>
+      </div>
       
       <div class="service-text">
           <h2>Select the device type:</h2>
@@ -629,7 +700,46 @@
   </div>
 </section>
 
+<section id="testimonials">
+  <h2>Customer Stories</h2>
+  <div class="testimonial-carousel">
+    <div class="testimonial-slides">
+      <div class="testimonial-slide">
+        <p>"My cracked phone screen was fixed in under an hour, and it looks brand new. The service was fast, friendly, and affordable. Highly recommend!"</p>
+        <p class="author">- Alex Johnson</p>
+      </div>
+      <div class="testimonial-slide">
+        <p>"I bought a refurbished laptop for school, and it works perfectly. The team at Seattle Tech Revive was super helpful in finding the right one for my needs."</p>
+        <p class="author">- Sarah Lee</p>
+      </div>
+      <div class="testimonial-slide">
+        <p>"My gaming console wasn't turning on, and they diagnosed and fixed the issue the same day. Saved me from buying a new one! Great service."</p>
+        <p class="author">- Michael Chen</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script>
+  // Typing Effect
+  const typingText = "Seattle";
+  const typingElement = document.getElementById('typing-effect');
+  let i = 0;
+  function typeWriter() {
+    if (i < typingText.length) {
+      typingElement.innerHTML += typingText.charAt(i);
+      i++;
+      setTimeout(typeWriter, 150);
+    } else {
+        setTimeout(() => {
+            i = 0;
+            typingElement.innerHTML = '';
+            typeWriter();
+        }, 3000);
+    }
+  }
+  typeWriter();
+
   const menuBtn = document.getElementById('menuBtn');
   const navbar = document.getElementById('navbar');
 
@@ -637,26 +747,54 @@
     menuBtn.classList.toggle('open');
     navbar.classList.toggle('open');
   });
-</script>
 
-<script>
-    const animatedElements = document.querySelectorAll(
-      '.service-text, .service-examples-container, .input-container, .product-text, .product-card'
-    );
-  
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, {
-      threshold: 0.1
+  // Animation Observer
+  const animatedElements = document.querySelectorAll(
+    '.service-text, .service-examples-container, .input-container, .product-text, .product-card'
+  );
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
     });
+  }, {
+    threshold: 0.1
+  });
+  animatedElements.forEach(el => observer.observe(el));
   
-    animatedElements.forEach(el => observer.observe(el));
+  // Testimonial Carousel
+    const slides = document.querySelector('.testimonial-slides');
+    const slideWidth = document.querySelector('.testimonial-slide').clientWidth;
+    let currentIndex = 0;
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.children.length;
+        slides.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+
+    setInterval(nextSlide, 5000);
+    
+    // Form Progress Bar
+    const form = document.getElementById('quoteForm');
+    const progressBar = document.getElementById('form-progress-bar');
+    const formElements = form.querySelectorAll('input[required], textarea[required]');
+    const totalSteps = formElements.length;
+
+    form.addEventListener('input', () => {
+        let completedSteps = 0;
+        formElements.forEach(el => {
+            if (el.value.trim() !== '') {
+                completedSteps++;
+            }
+        });
+        const progress = (completedSteps / totalSteps) * 100;
+        progressBar.style.width = `${progress}%`;
+    });
+
+
 </script>
 
 <footer class="footer">
