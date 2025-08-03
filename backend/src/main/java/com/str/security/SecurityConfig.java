@@ -20,7 +20,17 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**", "/css/**", "/js/**", "/", "/login", "/register").permitAll()
+                    .requestMatchers(
+                        "/", 
+                        "/login", 
+                        "/register", 
+                        "/quote/submit", 
+                        "/services", 
+                        "/css/**", 
+                        "/js/**", 
+                        "/images/**", 
+                        "/uploads/**" // if needed for uploaded images
+                    ).permitAll()
                     .anyRequest().authenticated())
             .formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/", true))           
             .logout(logout -> logout.logoutUrl("/logout"))
