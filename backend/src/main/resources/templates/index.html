@@ -36,42 +36,6 @@
       100% { transform: rotate(360deg); }
     }
     /* Global Styles */
-    html.light-mode,
-    html.light-mode body {
-      background-color: #f0f0f0;
-      color: #111;
-    }
-
-    html.light-mode nav {
-      background-color: #ffffff;
-    }
-
-    html.light-mode .service-text,
-    html.light-mode .product-text {
-      background-color: #ffffff;
-      color: #111;
-    }
-
-    html.light-mode .footer {
-      background-color: #dddddd;
-      color: #111;
-    }
-
-    html.light-mode .service-example {
-      color: #111;
-      border-color: #0c9176;
-    }
-
-    html.light-mode .service-example:has(input:checked),
-    html.light-mode .service-example input:checked + span {
-      background-color: #0c9176;
-      color: white;
-    }
-
-    html.light-mode .product-card {
-      background-color: white;
-      color: #111;
-    }
     html, body {
       margin: 0;
       padding: 0;
@@ -499,7 +463,6 @@
         <a href="#products">PRODUCTS</a>
         <a href="#services">SERVICES</a>
       </div>
-      <button id="themeToggle" style="background:none; border:2px solid white; color:white; border-radius:6px; padding:0.5em 1em; cursor:pointer;">Toggle Theme</button>
       <div class="menu-icon" id="menuBtn">
         <div class="bar top-bar"></div>
         <div class="bar bottom-bar"></div>
@@ -705,21 +668,6 @@
   <p>Contact: info@seattletechrevive.com | (123) 456-7890</p>
   <p>123 Tech Street, Seattle, WA</p>
 </footer>
-<script>
-  const toggleBtn = document.getElementById('themeToggle');
-  const root = document.documentElement;
-
-  // Check local storage on load
-  if (localStorage.getItem('theme') === 'light') {
-    root.classList.add('light-mode');
-  }
-
-  toggleBtn.addEventListener('click', () => {
-    root.classList.toggle('light-mode');
-    const isLight = root.classList.contains('light-mode');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
-</script>
 </body>
 <script>
   window.addEventListener('load', () => {
