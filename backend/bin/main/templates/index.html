@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Seattle Tech Revive</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="title" content="Seattle Tech Revive">
+  <meta name="description" content="Seattle Tech Revive offers quality refurbished devices and affordable device repairs with top-notch customer support.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+  <style>
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #ccc;
+      border-top: 5px solid #0c9176;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    /* Global Styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: black;
+      color: white;
+      scroll-behavior: smooth;
+      scroll-padding-top: 0;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #0C6A91;
+      height: 10vh; /* Taller nav */
+      transition: height 0.4s ease;
+      overflow: hidden;
+      border-radius: 0 0 8px 8px;
+      z-index: 999;
+    }
+
+
+    .nav-inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2em;
+      height: 100%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2em;
+    }
+
+    nav a {
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      line-height: 10vh; /* matches nav height for vertical centering */
+      transition: color 0.2s ease-in-out;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 6px;
+      background-color: #0C9134;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .menu-icon {
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .bar {
+        width: 100%;
+        height: 4px;
+        border-radius: 10px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .top-bar {
+        background-color: #0c9176;
+    }
+
+    .bottom-bar {
+        background-color: white;
+    }
+
+    .menu-icon.open .top-bar {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .menu-icon.open .bottom-bar {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    section {
+      padding: 4em 2em;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .service-text,
+    .product-text {
+      width: 100%;
+      max-width: 500px;
+      margin: 1em auto;
+      box-sizing: border-box;
+    }
+
+    .service-examples-container, .input-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 1000px;
+    }
+
+    .service-example {
+      background-color: transparent;
+      border: 8px solid #0c9176;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.3rem;
+      flex: 1 1 calc(33% - 1em);
+      box-sizing: border-box;
+      min-width: 200px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .service-example input:checked + span,
+    .service-example:has(input:checked) {
+      background-color: #0c9176;
+      color: white;
+    }
+    
+    .about {
+      background-color: #0C6A91;
+      position: relative;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      max-width: none;
+      height: calc(100vh - 10vh);
+      margin: 0;
+      padding: 0;
+      border-radius: 0 0 12px 12px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer {
+      background-color: #0c9176;
+      width: 100vw;
+      max-width: none;
+      height: 300px;
+      margin: 0;
+      padding: 2em 20px;
+      border-radius: 12px 12px 0 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      font-family: 'Quicksand', sans-serif;
+    }
+    .footer p {
+      margin: 0.5em 0;
+    }
+
+    .about-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-size: larger;
+    }
+
+    .about-inner h1 {
+      font-size: 4rem;
+      font-family: 'Quicksand', sans-serif;
+      text-align: left;
+      line-height: 1.2;
+      letter-spacing: 1px;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      margin: 0;
+    }
+
+    .service-text {
+        font-family: 'Quicksand', sans-serif;
+        background-color: #0C6A91;
+        padding: 50px 20px;
+        color: white;
+        font-size: larger;
+        border-radius: 12px;
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        
+        transform: translateX(-150px);
+        transition: transform 1s ease-out;
+    }
+
+    .service-text.visible {
+        transform: translateX(0);
+    }
+    
+    .input-container {
+      background-color: transparent;
+      border: 8px solid #0c9176;
+      padding: 2em;
+      border-radius: 12px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-sizing: border-box;
+    }
+    
+    .service-examples-container, .input-container {
+        transform: translateY(100px);
+        transition: transform 1s ease-out;
+    }
+
+    .service-examples-container.visible, .input-container.visible {
+        transform: translateY(0);
+    }
+
+    .input-container input, .input-container textarea, .input-container label {
+      width: 100%;
+      padding: 0.8em;
+      margin-bottom: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      color: black;
+    }
+
+    .input-container label {
+        color: white;
+        border: none;
+        padding: 0;
+    }
+    
+    .input-container textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    #submit-btn-container {
+      text-align: center;
+      margin-top: 2em;
+    }
+    
+    #submit-btn {
+      background-color: #0C6A91;
+      color: white;
+      padding: 0.75em 2.5em;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+
+    #submit-btn:hover {
+      background-color: #0C9134;
+    }
+
+    .product-text {
+        background-color: #0C6A91;
+        font-family: 'Quicksand', sans-serif;
+        padding: 50px 20px;
+        color: white;
+        font-size: larger;
+        border-radius: 12px;
+        position: relative;
+        margin: 10px auto 2em auto;
+        z-index: 1;
+        text-align: center;
+
+        transform: translateY(150px);
+        transition: transform 1s ease-out;
+    }
+
+    .product-text.visible {
+        transform: translateY(0);
+    }
+
+    .product-card {
+        background-color: #f9f9f9;
+        font-family: 'Quicksand', sans-serif;
+        color: black;
+        padding: 1em;
+        border-radius: 10px;
+        margin-top: -20px;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        max-width: 100%;
+        box-sizing: border-box;
+
+        transform: translateX(150px);
+        transition: transform 1s ease-out;
+    }
+
+    .product-card.visible {
+        transform: translateX(0);
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      nav {
+        height: 9vh;
+        padding: 0.5em;
+      }
+
+      .nav-row {
+        padding: 1em;
+      }
+
+      nav a {
+        font-size: 1.2rem;
+      }
+
+      .nav-links {
+        flex-direction: row;
+        gap: 1em;
+        width: 100%;
+        text-align: left;
+      }
+
+      section {
+        padding: 2em 1em;
+      }
+
+      .about,
+      .service-text,
+      .input-container,
+      .product-text,
+      .product-card,
+      .service-examples-container {
+        width: 100%;
+        margin: 1em auto;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: medium;
+        transform: none !important;
+      }
+
+      .input-container {
+        padding: 1.5em; /* Adjust padding for smaller screens */
+      }
+      
+      .service-example {
+        font-size: 1.1rem;
+      }
+
+      img {
+        height: auto !important;
+      }
+    }
+
+    .service-section-content {
+      position: relative;
+      z-index: 1;
+    }
+    #home {
+      scroll-margin-top: 10vh;
+    }
+    #products, #services {
+      scroll-margin-top: 3vh;
+    }
+    @media (max-width: 768px) {
+      #home {
+        scroll-margin-top: 12vh;
+      }
+      #products,
+      #services {
+        scroll-margin-top: 7vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="spinner"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-row">
+      <div class="nav-links">
+        <a href="#home">HOME</a>
+        <a href="#products">PRODUCTS</a>
+        <a href="#services">SERVICES</a>
+      </div>
+      <div class="menu-icon" id="menuBtn">
+        <div class="bar top-bar"></div>
+        <div class="bar bottom-bar"></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- SECTIONS -->
+<section id="home" class="about">
+  <div class="about-inner">
+    <h1>Seattle<br>Tech<br>Revive</h1>
+    <p>At Seattle Tech Revive, we are passionate about giving technology a second life. We specialize in high-quality refurbished devices and reliable, affordable repair services for laptops, phones, desktops, and more. Our team of skilled technicians ensures every device is thoroughly tested, repaired, and restored to meet top performance standards. Whether you’re looking for a budget-friendly device or need a quick repair, Seattle Tech Revive is your trusted partner for all things tech.</p>
+  </div>
+</section>
+
+<section id="services" style="position: relative;">
+  <form action="/quote/submit" method="post" enctype="multipart/form-data" id="quoteForm">
+    <div class="service-section-content">
+      
+      <div class="service-text">
+          <h2>Select the device type:</h2>
+      </div>
+      <div class="service-examples-container" id="deviceTypeSelector">
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Phone" hidden><span>Phone</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Laptop" hidden><span>Laptop</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Gaming Console" hidden><span>Gaming Console</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Controller" hidden><span>Controller</span>
+        </label>
+        <label class="service-example">
+          <input type="radio" name="deviceType" value="Other" hidden><span>Other</span>
+        </label>
+      </div>
+
+      <div class="service-text">
+        <h2>Select the brand:</h2>
+      </div>
+      <div class="service-examples-container" id="brandSelector">
+        <!-- Brands will be dynamically inserted here -->
+      </div>
+
+      <div class="service-text">
+        <h2>Enter the model:</h2>
+      </div>
+      <div class="input-container">
+          <input type="text" name="model" placeholder="e.g., iPhone 14 Pro, Dell XPS 15" required>
+      </div>
+
+      <div class="service-text">
+        <h2>Describe the issue:</h2>
+      </div>
+      <div class="input-container">
+        <textarea name="issue" placeholder="e.g., The screen is cracked and the battery dies quickly." required></textarea>
+        <label for="image">Upload Image (Optional):</label>
+        <input type="file" name="image" accept="image/*">
+      </div>
+
+      <div class="service-text">
+        <h2>Contact information:</h2>
+      </div>
+      <div class="input-container">
+          <input type="text" name="contactName" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email Address" required>
+          <input type="tel" name="phone" placeholder="Your Phone Number" required>
+      </div>
+      
+      <div id="submit-btn-container">
+        <button type="submit" id="submit-btn">Get a Quote</button>
+      </div>
+
+      <input type="hidden" name="deviceType" id="hiddenDeviceType" required>
+      <input type="hidden" name="brand" id="hiddenBrand" required>
+      
+      <script>
+          const brandOptions = {
+            Laptop: ["Apple", "Dell", "HP", "Lenovo", "Asus", "Acer", "Razer", "Microsoft", "Other"],
+            Desktop: ["Dell", "HP", "Lenovo", "Asus", "Acer", "Other"],
+            Phone: ["Apple", "Samsung", "Google", "OnePlus", "Other"],
+            Tablet: ["Apple", "Samsung", "Microsoft", "Other"],
+            Monitor: ["Dell", "LG", "Samsung", "Asus", "Other"],
+            "Gaming Console": ["Nintendo", "Sony", "Xbox", "Other"],
+            Controller: ["Nintendo", "Sony", "Xbox", "Other"],
+            Other: ["Other"]
+          };
+
+          const deviceTypeSelector = document.getElementById('deviceTypeSelector');
+          const hiddenDeviceType = document.getElementById('hiddenDeviceType');
+          const brandSelector = document.getElementById('brandSelector');
+          const hiddenBrand = document.getElementById('hiddenBrand');
+
+          function updateBrands(deviceType) {
+            brandSelector.innerHTML = ''; 
+            hiddenBrand.value = ''; 
+
+            if (deviceType && brandOptions[deviceType]) {
+              brandOptions[deviceType].forEach(brand => {
+                const label = document.createElement('label');
+                label.className = 'service-example';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'brandRadio';
+                input.value = brand;
+                input.hidden = true;
+
+                const span = document.createElement('span');
+                span.textContent = brand;
+
+                label.appendChild(input);
+                label.appendChild(span);
+                brandSelector.appendChild(label);
+              });
+            }
+          }
+
+          deviceTypeSelector.addEventListener('change', function(e) {
+            if (e.target && e.target.name === 'deviceType') {
+              hiddenDeviceType.value = e.target.value;
+              updateBrands(e.target.value);
+            }
+          });
+
+          brandSelector.addEventListener('change', function(e) {
+            if (e.target && e.target.name === 'brandRadio') {
+              hiddenBrand.value = e.target.value;
+            }
+          });
+
+          document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            if (!hiddenDeviceType.value) {
+              alert('Please select a device type.');
+              e.preventDefault();
+            }
+            if (!hiddenBrand.value) {
+              alert('Please select a brand.');
+              e.preventDefault();
+            }
+          });
+      </script>
+    </div>
+  </form>
+</section>
+
+<section id="products">
+    <div class="product-text">
+        <h2>Refurbished Products</h2>
+        <p>All of these products have been stress tested before listing.</p>
+    </div>
+
+  <div th:each="product : ${products}">
+    <div class="product-card">
+      <h3 th:text="${product.name}">Product Name</h3>
+      <p th:text="${product.description}">Short description</p>
+      <p th:text="'$' + ${product.price}">Price</p>
+      <img th:src="@{${product.imageUrl}}" alt="Product" style="width:100%; height:200px; object-fit:cover; border-radius:6px;">
+    </div>
+  </div>
+</section>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navbar = document.getElementById('navbar');
+
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    navbar.classList.toggle('open');
+  });
+</script>
+
+<script>
+    const animatedElements = document.querySelectorAll(
+      '.service-text, .service-examples-container, .input-container, .product-text, .product-card'
+    );
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+  
+    animatedElements.forEach(el => observer.observe(el));
+</script>
+
+<footer class="footer">
+  <h2>Seattle Tech Revive</h2>
+  <p>© 2025 Seattle Tech Revive. All rights reserved.</p>
+  <p>
+    <a href="#home" style="color:white; text-decoration: underline;">Back to top</a>
+  </p>
+  <p>Contact: info@seattletechrevive.com | (123) 456-7890</p>
+  <p>123 Tech Street, Seattle, WA</p>
+</footer>
+</body>
+<script>
+  window.addEventListener('load', () => {
+    document.getElementById('preloader').style.display = 'none';
+  });
+</script>
+</html>
